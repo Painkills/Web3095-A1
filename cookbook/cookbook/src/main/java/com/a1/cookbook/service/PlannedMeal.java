@@ -70,14 +70,6 @@ public class PlannedMeal {
 
     @Override
     public String toString() {
-        return "PlannedMeal{" +
-                "chefId=" + chefId +
-                ", RecipeId=" + RecipeId +
-                ", recipeName='" + recipeName + '\'' +
-                ", recipeCategory='" + recipeCategory + '\'' +
-                ", chefName='" + chefName + '\'' +
-                ", chefLastname='" + chefLastname + '\'' +
-                ", date=" + date +
-                '}';
+        return recipeCategory + ":" + recipeName;
     }
 }

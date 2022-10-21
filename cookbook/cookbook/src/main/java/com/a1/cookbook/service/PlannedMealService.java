@@ -19,7 +19,7 @@ public class PlannedMealService {
         this.mealPlanRepo = mealPlanRepo;
     }
 
-    public HashMap<LocalDate, List<PlannedMeal>> getPlannedMealsByIdAndDate(Long chefId, LocalDate requestedDate) {
+    public Map<LocalDate, List<PlannedMeal>> getPlannedMealsByIdAndDate(Long chefId, LocalDate requestedDate) {
         // Get chef
         Optional<Chef> chef = this.chefRepo.findById(chefId);
         Chef locatedChef = chef.orElseGet(chef::orElseThrow);
@@ -28,7 +28,7 @@ public class PlannedMealService {
         LocalDate endDate = requestedDate.plusDays(7);
 
         // Get all possible planned meals for the period
-        HashMap<LocalDate, List<PlannedMeal>> plannedMealMap = new HashMap();
+        Map<LocalDate, List<PlannedMeal>> plannedMealMap = new LinkedHashMap<>();
         for (LocalDate startDate = requestedDate; startDate.isBefore(endDate); startDate = startDate.plusDays(1)) {
             // Create an array of meals for the day
             List<PlannedMeal> plannedMeals = new ArrayList<>();
