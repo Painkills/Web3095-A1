@@ -1,7 +1,7 @@
 package com.a1.cookbook.data;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name="MEAL_PLAN")
@@ -18,7 +18,7 @@ public class MealPlan {
     private Long chefId;
 
     @Column(name="MEAL_PLAN_DATE")
-    private Date date;
+    private LocalDate date;
 
     public long getId() {
         return id;
@@ -44,11 +44,11 @@ public class MealPlan {
         this.chefId = chefId;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
