@@ -33,7 +33,7 @@ public class FavoriteListService {
         });
 
         // Get recipes made by the chef by filtering by creatorId
-        Iterable<Recipe> allRecipes = this.recipeRepo.findAll();
+        Iterable<Recipe> allRecipes = this.recipeRepo.findRecipesByCreator_id(chefId);
         allRecipes.forEach(recipe -> {
             if (recipe.getCreator_id() == chefId) allFavList.add(recipe);
         });
