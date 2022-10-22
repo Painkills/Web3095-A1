@@ -23,8 +23,11 @@ public class PlannedMealController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getPlans(Model model) {
-        Map<LocalDate, List<PlannedMeal>> mealPlans = this.mealService.getPlannedMealsByIdAndDate(2L, LocalDate.parse("2022-10-20"));
+    public String getPlans(@RequestParam(value = "chef")String chef, @RequestParam(value="date", required = false) String dateString, Model model) {
+        Long chefId = Long.parseLong(chef);
+        System.out.println(chefId);
+        System.out.println(dateString);
+        Map<LocalDate, List<PlannedMeal>> mealPlans = this.mealService.getPlannedMealsByIdAndDate(chefId, LocalDate.parse(dateString));
         model.addAttribute("mealPlans", mealPlans);
         return "mealplanner";
     }
