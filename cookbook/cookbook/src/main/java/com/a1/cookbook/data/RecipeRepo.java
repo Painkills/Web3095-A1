@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RecipeRepo extends CrudRepository<Recipe, Long> {
-    Iterable<Recipe> findRecipesByCreator_id(@Param("creatorId") Long creatorId);
+    Iterable<Recipe> findRecipesByCreatorId(@Param("creatorId") Long creatorId);
 }

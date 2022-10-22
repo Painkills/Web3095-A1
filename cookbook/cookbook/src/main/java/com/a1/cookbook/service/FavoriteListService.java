@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -24,19 +25,21 @@ public class FavoriteListService {
         // Initialize list of recipes
         List<Recipe> allFavList = new ArrayList<>();
 
+        // Get recipes made by the chef by filtering by creatorId
+        Iterable<Recipe> allRecipes = this.recipeRepo.findRecipesByCreatorId(chefId);
+        allRecipes.forEach(allFavList::add);
+
         // Get recipes favorited by the Chef
         Iterable<Favorite> favList = this.favoriteRepo.findFavoritesByChefId(chefId);
         favList.forEach(favorite -> {
             Optional<Recipe> recipe = this.recipeRepo.findById(favorite.getRecipeId());
             Recipe locatedRecipe = recipe.orElseGet(recipe::orElseThrow);
-            allFavList.add(locatedRecipe);
+            if (!Objects.equals(favorite.getChefId(), chefId)) {
+                allFavList.add(locatedRecipe);
+            }
         });
 
-        // Get recipes made by the chef by filtering by creatorId
-        Iterable<Recipe> allRecipes = this.recipeRepo.findRecipesByCreator_id(chefId);
-        allRecipes.forEach(recipe -> {
-            if (recipe.getCreator_id() == chefId) allFavList.add(recipe);
-        });
+
         return allFavList;
     }
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Favorites List</title>
+</head>
+<body>
+    <h1>Welcome to your Favorite Recipe List!</h1>
+    <table>
+        <tr>
+            <th>Category</th>
+            <th>Recipe</th>
+            <th>Ingredients</th>
+            <th>Instructions</th>
+        </tr>
+        <tr th:each="recipe: ${favRecipes}">
+            <td th:text="${recipe.getCategory()}">Category</td>
+            <td th:text="${recipe.getName()}">Category</td>
+            <td th:text="${recipe.getIngredients()}">Category</td>
+            <td th:text="${recipe.getInstructions()}">Category</td>
+        </tr>
+    </table>
+</body>
+</html>
