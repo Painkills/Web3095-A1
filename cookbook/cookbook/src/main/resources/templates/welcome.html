@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
 </head>
 <body>
-<p th:text="${userID}"></p>
+<p th:text="${theChef}"></p>
 <form method="post">
-    <button type="button" onclick="location.href = '/logout'">Logout</button>
+    <button type="button" onclick="location.href = '/login'">Logout</button>
 </form>
 </body>
 </html>
