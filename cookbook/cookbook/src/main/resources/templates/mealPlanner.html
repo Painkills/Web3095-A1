@@ -6,9 +6,9 @@
 </head>
 <body>
     <h1>Welcome to the Meal Planner!</h1>
-    <table style="border: black">
+    <table>
         <tr>
-            <th colspan="7">Your Planned Meals for the week of...</th>
+            <th>Your Planned Meals for the week of...</th>
         </tr>
         <tr th:each="day: ${mealPlans}" th:with="meals=${day.getValue()}">
             <th>

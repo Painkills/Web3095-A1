@@ -27,7 +27,7 @@ public class PlannedMealService {
         // Check Planned Meals for a week from the chosen date
         LocalDate endDate = requestedDate.plusDays(7);
 
-        // Get all possible planned meals for the period
+        // Create Map to hold all sets of planned meals for the period by date
         Map<LocalDate, List<PlannedMeal>> plannedMealMap = new LinkedHashMap<>();
         for (LocalDate startDate = requestedDate; startDate.isBefore(endDate); startDate = startDate.plusDays(1)) {
             // Create an array of meals for the day
