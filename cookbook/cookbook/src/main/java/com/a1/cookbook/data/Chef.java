@@ -1,9 +1,14 @@
 package com.a1.cookbook.data;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name="CHEF")
+@SQLDelete(sql = "UPDATE CHEF SET DELETED = true WHERE CHEF_ID=?")
+@Where(clause = "deleted=false")
 public class Chef {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,6 +26,9 @@ public class Chef {
 
     @Column(name="CHEF_PASSWORD")
     private String password;
+
+    @Column(name = "DELETED")
+    private boolean deleted = Boolean.FALSE;
 
     public long getId() {
         return id;

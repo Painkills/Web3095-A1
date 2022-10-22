@@ -8,6 +8,7 @@
     <h1 th:text="'Behold, ' + ${title}">Title</h1>
     <table>
         <tr>
+            <th></th>
             <th>Category</th>
             <th>Recipe</th>
             <th>Ingredients</th>
@@ -15,6 +16,11 @@
             <th>Created By</th>
         </tr>
         <tr th:each="recipe: ${recipes}">
+            <td>
+                <form action="recipe/delete" method="POST">
+                    <button name="id" th:value="${recipe.getRecipeId()}">Delete</button>
+                </form>
+            </td>
             <td th:text="${recipe.getRecipeCategory()}">Category</td>
             <td th:text="${recipe.getRecipeName()}">Recipe Name</td>
             <td th:text="${recipe.getRecipeIngredients()}">Ingredients</td>

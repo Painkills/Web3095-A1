@@ -1,10 +1,15 @@
 package com.a1.cookbook.data;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name="MEAL_PLAN")
+@SQLDelete(sql = "UPDATE MEAL_PLAN SET DELETED = true WHERE RECIPE_ID=?")
+@Where(clause = "deleted=false")
 public class MealPlan {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +24,9 @@ public class MealPlan {
 
     @Column(name="MEAL_PLAN_DATE")
     private LocalDate date;
+
+    @Column(name = "DELETED")
+    private boolean deleted = Boolean.FALSE;
 
     public long getId() {
         return id;

@@ -3,6 +3,7 @@ package com.a1.cookbook.service;
 
 import com.a1.cookbook.data.*;
 import com.a1.cookbook.util.RecipeBuilder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,6 +22,19 @@ public class RecipeService {
         this.recipeRepo = recipeRepo;
         this.favoriteRepo = favoriteRepo;
         this.builder = builder;
+    }
+
+    public List<CompleteRecipe> getAllRecipes(){
+        // Initialize list of recipes
+        List<CompleteRecipe> completeRecipes = new ArrayList<>();
+
+        // Get recipes created by the current chef by filtering by creatorId
+        Iterable<Recipe> allRecipes = this.recipeRepo.findAll();
+
+        // Build into "complete recipe" that contains creator name and id
+        allRecipes.forEach(recipe -> completeRecipes.add(this.builder.buildCompleteRecipe(recipe)));
+
+        return completeRecipes;
     }
 
     public List<CompleteRecipe> getFavoriteRecipesByChef(Long chefId) {
@@ -48,16 +62,24 @@ public class RecipeService {
         return allFavList;
     }
 
-    public List<CompleteRecipe> getAllRecipes(){
-        // Initialize list of recipes
-        List<CompleteRecipe> completeRecipes = new ArrayList<>();
+    public CompleteRecipe getRecipeById(Long recipeId) {
+        Optional<Recipe> recipe = this.recipeRepo.findById(recipeId);
+        Recipe locatedRecipe = recipe.orElseGet(recipe::orElseThrow);
+        return this.builder.buildCompleteRecipe(locatedRecipe);
+    }
 
-        // Get recipes created by the current chef by filtering by creatorId
-        Iterable<Recipe> allRecipes = this.recipeRepo.findAll();
+    public Recipe addRecipe(String name, String category, String ingredients, String instructions, Long creatorId) {
+        Recipe newRecipe = new Recipe();
+        newRecipe.setName(name);
+        newRecipe.setCategory(category);
+        newRecipe.setIngredients(ingredients);
+        newRecipe.setInstructions(instructions);
+        newRecipe.setId(creatorId);
+        return this.recipeRepo.save(newRecipe);
+    }
 
-        // Build into "complete recipe" that contains creator name and id
-        allRecipes.forEach(recipe -> completeRecipes.add(this.builder.buildCompleteRecipe(recipe)));
-
-        return completeRecipes;
+    public boolean deleteRecipe(Long recipeId) {
+        this.recipeRepo.deleteById(recipeId);
+        return this.recipeRepo.existsById(recipeId);
     }
 }
