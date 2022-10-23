@@ -10,7 +10,7 @@ import javax.persistence.*;
 @SQLDelete(sql = "UPDATE CHEF SET DELETED = true WHERE CHEF_ID=?")
 public class Chef {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="CHEF_ID")
     private long id;
 

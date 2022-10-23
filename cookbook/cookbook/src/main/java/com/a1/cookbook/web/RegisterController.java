@@ -2,6 +2,7 @@ package com.a1.cookbook.web;
 
 import com.a1.cookbook.service.ChefService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,9 +21,10 @@ public class RegisterController {
         return "register";
     }
 
-    @RequestMapping(value= {"", "/"}, method = RequestMethod.POST)
-    public String registerCheckPage(@RequestParam String email, @RequestParam String fName, @RequestParam String lName,@RequestParam String password){
-        this.chefService.addChef(fName, lName, email, password);
-        return "login";
+    @PostMapping(value= {"", "/"})
+    public String registerCheckPage(@RequestParam String email, String password, String firstName, String lastName){
+        this.chefService.addChef(firstName, lastName, email, password);
+
+        return "redirect:/";
     }
 }

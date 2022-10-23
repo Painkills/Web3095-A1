@@ -21,15 +21,15 @@ public class LoginController {
         return "login";
     }
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String welcomePage(Model model, @RequestParam String userId, @RequestParam String password){
+    public String welcomePage(Model model, @RequestParam String userId, String password){
         RedirectView redirectView = new RedirectView();
         if(!password.isEmpty() && !userId.isEmpty() && isNumeric(userId)){
             boolean theChef = this.chefService.checkLogin(Long.parseLong(userId), password);
             String chefName = "";
             if(theChef){
-                chefName = chefService.returnName(2L);
+                chefName = chefService.returnName(Long.parseLong(userId));
                 model.addAttribute("theChef", chefName);
-                return "welcome";
+                return "redirect:/welcome";
             }else{
                 return "login";
             }

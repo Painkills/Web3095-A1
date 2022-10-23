@@ -2,6 +2,7 @@ package com.a1.cookbook.service;
 
 import com.a1.cookbook.data.Chef;
 import com.a1.cookbook.data.ChefRepo;
+import com.a1.cookbook.data.Recipe;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -42,5 +43,12 @@ public class ChefService {
         newChef.setPassword(password);
         System.out.println("This is the way: " + newChef);
         return this.chefRepo.save(newChef);
+    }
+
+    public void deleteChef(Long chefId) {
+        // Soft delete the recipe
+        Chef chef = this.chefRepo.findById(chefId).get();
+        chef.setDeleted(true);
+        this.chefRepo.save(chef);
     }
 }

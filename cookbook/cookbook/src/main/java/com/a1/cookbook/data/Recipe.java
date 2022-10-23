@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="RECIPE")
-//@SQLDelete(sql = "UPDATE RECIPE SET DELETED = true WHERE RECIPE_ID=?")
+@SQLDelete(sql = "UPDATE RECIPE SET DELETED = true WHERE RECIPE_ID=?")
 public class Recipe {
 
     @Id
