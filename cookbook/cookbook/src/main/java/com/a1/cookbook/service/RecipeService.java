@@ -44,50 +44,51 @@ public class RecipeService {
         List<CompleteRecipe> allFavList = new ArrayList<>();
 
         // Get recipes created by the current chef by filtering by creatorId
-        Iterable<Recipe> allRecipes = this.recipeRepo.findRecipesByCreatorId(chefId);
+        Iterable<Recipe> allRecipes = recipeRepo.findRecipesByCreatorId(chefId);
 
         // Build into "complete recipe" that contains creator name and id if not deleted
         allRecipes.forEach(recipe -> {
-            if (!recipe.isDeleted()) allFavList.add(this.builder.buildCompleteRecipe(recipe));
+            if (!recipe.isDeleted()) allFavList.add(builder.buildCompleteRecipe(recipe));
         });
 
         // Get recipes favorited by the Chef
-        Iterable<Favorite> favList = this.favoriteRepo.findFavoritesByChefId(chefId);
+        Iterable<Favorite> favList = favoriteRepo.findFavoritesByChefId(chefId);
         favList.forEach(favorite -> {
             // Locate the recipe the favorite refers to
-            Optional<Recipe> recipe = this.recipeRepo.findById(favorite.getRecipeId());
-            Recipe locatedRecipe = recipe.orElseGet(recipe::orElseThrow);
+            Recipe recipe = recipeRepo.findById(favorite.getRecipeId()).get();
 
             // If the recipe isn't one already added above, and not deleted, build and add it to All Favorites
             if (Objects.equals(favorite.getChefId(), chefId)) {
-                if (!favorite.isDeleted()) allFavList.add(this.builder.buildCompleteRecipe(locatedRecipe));
+                if (!favorite.isDeleted()) allFavList.add(builder.buildCompleteRecipe(recipe));
             }
         });
         return allFavList;
     }
 
-    public CompleteRecipe getRecipeById(Long recipeId) {
-        Optional<Recipe> recipe = this.recipeRepo.findById(recipeId);
-        Recipe locatedRecipe = recipe.orElseGet(recipe::orElseThrow);
-        return this.builder.buildCompleteRecipe(locatedRecipe);
+    public CompleteRecipe getCompleteRecipeById(Long recipeId) {
+        Recipe recipe = this.recipeRepo.findById(recipeId).get();
+        return this.builder.buildCompleteRecipe(recipe);
     }
 
-    public Recipe addRecipe(String name, String category, String ingredients, String instructions, Long creatorId) {
-        Recipe newRecipe = new Recipe();
-        newRecipe.setName(name);
-        newRecipe.setCategory(category);
-        newRecipe.setIngredients(ingredients);
-        newRecipe.setInstructions(instructions);
-        newRecipe.setId(creatorId);
-        return this.recipeRepo.save(newRecipe);
+    public Recipe getRecipeById(Long recipeId) {
+        return this.recipeRepo.findById(recipeId).get();
+    }
+
+    public Recipe saveOrUpdate(String name, String category, String ingredients, String instructions, Long id) {
+        Recipe recipe = new Recipe();
+        recipe.setName(name);
+        recipe.setCategory(category);
+        recipe.setIngredients(ingredients);
+        recipe.setInstructions(instructions);
+        recipe.setCreatorId(id);
+        System.out.println(recipe);
+        return recipeRepo.save(recipe);
     }
 
     public void deleteRecipe(Long recipeId) {
         // Soft delete the recipe
-        Optional<Recipe> recipe = this.recipeRepo.findById(recipeId);
-        Recipe foundRecipe = recipe.orElseGet(recipe::orElseThrow);
-        foundRecipe.setDeleted(true);
-        this.recipeRepo.save(foundRecipe);
-        System.out.println(foundRecipe);
+        Recipe recipe = this.recipeRepo.findById(recipeId).get();
+        recipe.setDeleted(true);
+        this.recipeRepo.save(recipe);
     }
 }

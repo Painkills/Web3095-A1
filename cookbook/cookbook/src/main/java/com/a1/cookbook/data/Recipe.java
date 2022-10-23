@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Recipe {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="RECIPE_ID")
     private long id;
 
@@ -31,7 +31,7 @@ public class Recipe {
     private String instructions;
 
     @Column(name = "CREATOR_ID")
-    private long creatorId;
+    private Long creatorId;
 
     @Column(name = "DELETED")
     private boolean deleted = Boolean.FALSE;

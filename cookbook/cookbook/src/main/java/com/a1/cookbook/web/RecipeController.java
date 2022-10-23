@@ -1,5 +1,6 @@
 package com.a1.cookbook.web;
 
+import com.a1.cookbook.data.Recipe;
 import com.a1.cookbook.service.CompleteRecipe;
 import com.a1.cookbook.service.RecipeService;
 import org.springframework.stereotype.Controller;
@@ -17,34 +18,49 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
-    public String getRecipes(Model model) {
-        List<CompleteRecipe> recipes = this.recipeService.getAllRecipes();
+    @GetMapping(value = {"", "/"})
+    private String getAllRecipes(Model model) {
+        List<CompleteRecipe> recipes = recipeService.getAllRecipes();
+        model.addAttribute("request", "viewAll");
         model.addAttribute("title", "the Recipinomicon!");
         model.addAttribute("recipes", recipes);
         return "recipeList";
     }
-    @RequestMapping(
-            value = {"/add","add"},
-            params = {"name", "category", "ingredients", "instructions", "creatorId"},
-            method = RequestMethod.POST
-    )
-    public String addRecipe(
-            @RequestParam(value = "name")String name,
-            @RequestParam(value = "category")String category,
-            @RequestParam(value = "ingredients")String ingredients,
-            @RequestParam(value = "instructions")String instructions,
-            @RequestParam(value = "creatorId")int creatorId) {
-        Long creatorIdLong = (long) creatorId;
-        this.recipeService.addRecipe(name, category, ingredients, instructions, creatorIdLong);
+
+    @GetMapping("/{recipeId}")
+    private String getARecipe(@PathVariable("recipeId") int recipeId, Model model) {
+        CompleteRecipe recipe = recipeService.getCompleteRecipeById((long)recipeId);
+        model.addAttribute("request", "view");
+        model.addAttribute("title", recipe.getRecipeName() + "!");
+        model.addAttribute("recipe", recipe);
+        return "singleRecipe";
+    }
+
+
+    @GetMapping (value = {"/create"})
+    private String addRecipePage(Model model) {
+        model.addAttribute("request", "create");
+        return "createRecipe";
+    }
+
+    @GetMapping (value = {"/update/{recipeId}"})
+    private String updateRecipePage(@PathVariable("recipeId") int recipeId, Model model) {
+        Recipe recipe = recipeService.getRecipeById((long)recipeId);
+        model.addAttribute("request", "edit");
+        model.addAttribute("title", "your chance to edit " + recipe.getName() + "!");
+        model.addAttribute("recipe", recipe);
+        return "createRecipe";
+    }
+
+    @PostMapping(value = {"/create", "/update"})
+    private String addRecipe(@RequestParam String name, String category, String ingredients, String instructions, Long id) {
+        recipeService.saveOrUpdate(name, category, ingredients, instructions, id);
         return "recipeList";
     }
-    @RequestMapping(
-            value = {"/delete","delete"},
-            method = RequestMethod.POST)
-    @ResponseBody
-    public String deleteRecipe(@RequestParam(value = "id") Long recipeId) {
-        this.recipeService.deleteRecipe(recipeId);
+
+    @PostMapping("/delete")
+    private String deleteRecipe(@RequestParam("id") int recipeId) {
+        this.recipeService.deleteRecipe((long)recipeId);
         return "recipeList";
     }
 }
