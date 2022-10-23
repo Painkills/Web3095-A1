@@ -24,7 +24,7 @@ public class Recipe {
     private String instructions;
 
     @Column(name = "CREATOR_ID")
-    private long creator_id;
+    private long creatorId;
 
     public long getId() {
         return id;
@@ -66,12 +66,12 @@ public class Recipe {
         this.instructions = instructions;
     }
 
-    public long getCreator_id() {
-        return creator_id;
+    public long getCreatorId() {
+        return creatorId;
     }
 
-    public void setCreator_id(long creator_id) {
-        this.creator_id = creator_id;
+    public void setCreatorId(long creatorId) {
+        this.creatorId = creatorId;
     }
 
     @Override
@@ -82,7 +82,7 @@ public class Recipe {
                 ", category='" + category + '\'' +
                 ", ingredients='" + ingredients + '\'' +
                 ", instructions='" + instructions + '\'' +
-                ", creator_id=" + creator_id +
+                ", creator_id=" + creatorId +
                 '}';
     }
 }
