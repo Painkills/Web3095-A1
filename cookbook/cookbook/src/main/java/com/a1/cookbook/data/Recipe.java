@@ -10,8 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="RECIPE")
-@SQLDelete(sql = "UPDATE RECIPE SET DELETED = true WHERE RECIPE_ID=?")
-@Where(clause = "deleted=false")
+//@SQLDelete(sql = "UPDATE RECIPE SET DELETED = true WHERE RECIPE_ID=?")
 public class Recipe {
 
     @Id
@@ -85,15 +84,22 @@ public class Recipe {
         this.creatorId = creatorId;
     }
 
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
     @Override
     public String toString() {
         return "Recipe{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", category='" + category + '\'' +
-                ", ingredients='" + ingredients + '\'' +
-                ", instructions='" + instructions + '\'' +
                 ", creator_id=" + creatorId +
+                ", deleted?=" + isDeleted() +
                 '}';
     }
 }

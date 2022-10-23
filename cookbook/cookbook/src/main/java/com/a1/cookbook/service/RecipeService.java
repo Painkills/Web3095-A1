@@ -31,8 +31,10 @@ public class RecipeService {
         // Get recipes created by the current chef by filtering by creatorId
         Iterable<Recipe> allRecipes = this.recipeRepo.findAll();
 
-        // Build into "complete recipe" that contains creator name and id
-        allRecipes.forEach(recipe -> completeRecipes.add(this.builder.buildCompleteRecipe(recipe)));
+        // If not deleted, build into "complete recipe" that contains creator name and id
+        allRecipes.forEach(recipe -> {
+            if(!recipe.isDeleted()) completeRecipes.add(this.builder.buildCompleteRecipe(recipe));
+        });
 
         return completeRecipes;
     }
@@ -44,8 +46,10 @@ public class RecipeService {
         // Get recipes created by the current chef by filtering by creatorId
         Iterable<Recipe> allRecipes = this.recipeRepo.findRecipesByCreatorId(chefId);
 
-        // Build into "complete recipe" that contains creator name and id
-        allRecipes.forEach(recipe -> allFavList.add(this.builder.buildCompleteRecipe(recipe)));
+        // Build into "complete recipe" that contains creator name and id if not deleted
+        allRecipes.forEach(recipe -> {
+            if (!recipe.isDeleted()) allFavList.add(this.builder.buildCompleteRecipe(recipe));
+        });
 
         // Get recipes favorited by the Chef
         Iterable<Favorite> favList = this.favoriteRepo.findFavoritesByChefId(chefId);
@@ -54,10 +58,9 @@ public class RecipeService {
             Optional<Recipe> recipe = this.recipeRepo.findById(favorite.getRecipeId());
             Recipe locatedRecipe = recipe.orElseGet(recipe::orElseThrow);
 
-            // If the recipe isn't one already added above, build and add it to All Favorites
+            // If the recipe isn't one already added above, and not deleted, build and add it to All Favorites
             if (Objects.equals(favorite.getChefId(), chefId)) {
-                System.out.println("this happened");
-                allFavList.add(this.builder.buildCompleteRecipe(locatedRecipe));
+                if (!favorite.isDeleted()) allFavList.add(this.builder.buildCompleteRecipe(locatedRecipe));
             }
         });
         return allFavList;
@@ -79,8 +82,12 @@ public class RecipeService {
         return this.recipeRepo.save(newRecipe);
     }
 
-    public boolean deleteRecipe(Long recipeId) {
-        this.recipeRepo.deleteById(recipeId);
-        return this.recipeRepo.existsById(recipeId);
+    public void deleteRecipe(Long recipeId) {
+        // Soft delete the recipe
+        Optional<Recipe> recipe = this.recipeRepo.findById(recipeId);
+        Recipe foundRecipe = recipe.orElseGet(recipe::orElseThrow);
+        foundRecipe.setDeleted(true);
+        this.recipeRepo.save(foundRecipe);
+        System.out.println(foundRecipe);
     }
 }
