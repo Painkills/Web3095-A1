@@ -4,16 +4,14 @@ import com.a1.cookbook.data.Chef;
 import com.a1.cookbook.data.ChefRepo;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ChefListService {
+public class ChefService {
 
     private final ChefRepo chefRepo;
 
-    public ChefListService(ChefRepo chefRepo) {
+    public ChefService(ChefRepo chefRepo) {
         this.chefRepo = chefRepo;
     }
     public boolean checkLogin(Long chefId, String password){;

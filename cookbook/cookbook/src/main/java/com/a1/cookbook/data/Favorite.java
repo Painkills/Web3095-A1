@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Entity
 @Table(name="FAVORITE")
 @SQLDelete(sql = "UPDATE FAVORITE SET DELETED = true WHERE RECIPE_ID=?")
-@Where(clause = "deleted=false")
 public class Favorite {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,6 +45,14 @@ public class Favorite {
 
     public void setChefId(Long chefId) {
         this.chefId = chefId;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Override

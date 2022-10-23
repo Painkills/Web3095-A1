@@ -25,6 +25,7 @@ public class RecipeController {
         return "recipeList";
     }
     @RequestMapping(
+            value = {"/add","add"},
             params = {"name", "category", "ingredients", "instructions", "creatorId"},
             method = RequestMethod.POST
     )
@@ -36,7 +37,7 @@ public class RecipeController {
             @RequestParam(value = "creatorId")int creatorId) {
         Long creatorIdLong = (long) creatorId;
         this.recipeService.addRecipe(name, category, ingredients, instructions, creatorIdLong);
-        return "recipeList";
+        return "Recipe added!";
     }
     @RequestMapping(
             value = {"/delete","delete"},
@@ -44,6 +45,6 @@ public class RecipeController {
     @ResponseBody
     public String deleteRecipe(@RequestParam(value = "id") Long recipeId) {
         this.recipeService.deleteRecipe(recipeId);
-        return "recipeList";
+        return "Recipe deleted!";
     }
 }

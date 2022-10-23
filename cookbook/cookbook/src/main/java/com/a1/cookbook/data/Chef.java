@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Entity
 @Table(name="CHEF")
 @SQLDelete(sql = "UPDATE CHEF SET DELETED = true WHERE CHEF_ID=?")
-@Where(clause = "deleted=false")
 public class Chef {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -68,6 +67,14 @@ public class Chef {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Override
