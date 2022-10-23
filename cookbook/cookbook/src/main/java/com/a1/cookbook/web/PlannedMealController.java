@@ -1,5 +1,6 @@
 package com.a1.cookbook.web;
 
+
 import com.a1.cookbook.service.PlannedMeal;
 import com.a1.cookbook.service.PlannedMealService;
 import net.bytebuddy.asm.Advice;
@@ -23,6 +24,7 @@ public class PlannedMealController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
+
     public String getPlans(@RequestParam(value = "chef")String chef, @RequestParam(value="date", required = false) String dateString, Model model) {
         Long chefId = Long.parseLong(chef);
         LocalDate date;

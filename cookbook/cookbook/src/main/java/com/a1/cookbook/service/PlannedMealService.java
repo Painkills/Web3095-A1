@@ -39,10 +39,12 @@ public class PlannedMealService {
         // get all MealPlans for the chef and put them in the corresponding arrays in plannedMealMap by date
         Iterable<MealPlan> mealPlans = this.mealPlanRepo.findMealPlanByChefId(chefId);
         mealPlans.forEach(mealPlan -> {
+
             // Only process mealPlan if it is within one week of requested date range
             if (mealPlan.getDate().isBefore(requestedDate) || mealPlan.getDate().isAfter(endDate)) {
                 return;
             }
+
             // Get recipe
             Optional<Recipe> recipe = this.recipeRepo.findById(mealPlan.getRecipeId());
             Recipe locatedRecipe = recipe.orElseGet(recipe::orElseThrow);
