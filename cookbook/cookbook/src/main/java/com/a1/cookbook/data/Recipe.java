@@ -1,9 +1,17 @@
 package com.a1.cookbook.data;
 
+import net.bytebuddy.implementation.bind.annotation.Default;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name="RECIPE")
+@SQLDelete(sql = "UPDATE RECIPE SET DELETED = true WHERE RECIPE_ID=?")
+@Where(clause = "deleted=false")
 public class Recipe {
 
     @Id
@@ -25,6 +33,9 @@ public class Recipe {
 
     @Column(name = "CREATOR_ID")
     private long creatorId;
+
+    @Column(name = "DELETED")
+    private boolean deleted = Boolean.FALSE;
 
     public long getId() {
         return id;
