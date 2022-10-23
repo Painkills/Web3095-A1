@@ -29,7 +29,7 @@ public class LoginController {
             if(theChef){
                 chefName = chefService.returnName(Long.parseLong(userId));
                 model.addAttribute("theChef", chefName);
-                return "redirect:/welcome";
+                return "welcome";
             }else{
                 return "login";
             }
