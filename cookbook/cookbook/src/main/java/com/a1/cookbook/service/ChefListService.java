@@ -1,30 +1,30 @@
 package com.a1.cookbook.service;
 
-import com.a1.cookbook.data.*;
+import com.a1.cookbook.data.Chef;
+import com.a1.cookbook.data.ChefRepo;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
-public class ChefService {
+public class ChefListService {
 
     private final ChefRepo chefRepo;
 
-    public ChefService(ChefRepo chefRepo) {
+    public ChefListService(ChefRepo chefRepo) {
         this.chefRepo = chefRepo;
     }
-
     public boolean checkLogin(Long chefId, String password){;
         try {
+
             Optional<Chef> FoundChefId = this.chefRepo.findById(chefId);
             Chef locatedChef = FoundChefId.orElseGet(FoundChefId::orElseThrow);
             return locatedChef.getId() == chefId && locatedChef.getPassword().equals(password);
         }catch(Exception e){
-                return false;
+            return false;
         }
-
 
     }
     public String returnName(Long chefId){
@@ -33,5 +33,16 @@ public class ChefService {
         Chef locatedChef = FoundChefId.orElseGet(FoundChefId::orElseThrow);
 
         return locatedChef.getFirstName();
+    }
+    public Chef addChef(String fName, String lName, String email, String password) {
+        long FoundChefId = this.chefRepo.count();
+        Chef newChef = new Chef();
+        newChef.setId(FoundChefId + 1);
+        newChef.setFirstName(fName);
+        newChef.setLastName(lName);
+        newChef.setEmail(email);
+        newChef.setPassword(password);
+        System.out.println("This is the way: " + newChef);
+        return this.chefRepo.save(newChef);
     }
 }
