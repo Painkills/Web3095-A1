@@ -55,7 +55,8 @@ public class RecipeService {
             Recipe locatedRecipe = recipe.orElseGet(recipe::orElseThrow);
 
             // If the recipe isn't one already added above, build and add it to All Favorites
-            if (!Objects.equals(favorite.getChefId(), chefId)) {
+            if (Objects.equals(favorite.getChefId(), chefId)) {
+                System.out.println("this happened");
                 allFavList.add(this.builder.buildCompleteRecipe(locatedRecipe));
             }
         });
