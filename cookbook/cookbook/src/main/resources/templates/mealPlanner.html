@@ -20,8 +20,8 @@
                     <th scope="row" th:text="${day.getKey()}">
                         <!--<p th:text="${day.getKey()}">Date</p>-->
                     </th>
-                    <td th:each="meal: ${meals}" th:text="${meal}">
-                        <!--<p th:text="${meal}">Meal</p>-->
+                    <td>
+                        <p th:each="meal: ${meals}" th:text="${meal}">Meal</p>
                     </td>
                 </tr>
             </tbody>
