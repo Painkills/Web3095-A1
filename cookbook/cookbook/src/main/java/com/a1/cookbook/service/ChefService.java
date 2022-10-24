@@ -47,6 +47,17 @@ public class ChefService {
         });
             return capturedChef.get().getFirstName();
     }
+    public Long returnId(String email){
+        AtomicReference<Chef> capturedChef = new AtomicReference<>(new Chef());
+        Iterable<Chef> FoundChefId = this.chefRepo.findAll();
+        FoundChefId.forEach(chef -> {
+            System.out.println("this is the foreach email: "+ chef.getEmail()+ " this is the input email" + email);
+            if(Objects.equals(chef.getEmail(), email)){
+                capturedChef.set(chef);
+            }
+        });
+            return capturedChef.get().getId();
+    }
     public Chef addChef(String fName, String lName, String email, String password) {
         long FoundChefId = this.chefRepo.count();
         Chef newChef = new Chef();

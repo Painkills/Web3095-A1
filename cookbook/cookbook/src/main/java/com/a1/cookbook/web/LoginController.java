@@ -28,10 +28,13 @@ public class LoginController {
         if(!password.isEmpty() && !email.isEmpty()){
             boolean theChef = this.chefService.checkLogin(email, password);
             String chefName = "";
+            Long chefId;
             System.out.println(theChef);
             if(theChef){
                 chefName = chefService.returnName(email);
+                chefId = chefService.returnId(email);
                 model.addAttribute("theChef", chefName);
+                model.addAttribute("ChefId", chefId);
                 return "welcome";
             }else{
                 return "login";
