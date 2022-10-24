@@ -20,6 +20,8 @@ public class LoginController {
     public String loginPage(){
         return "login";
     }
+
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String welcomePage(Model model, @RequestParam String userId, String password){
         RedirectView redirectView = new RedirectView();
