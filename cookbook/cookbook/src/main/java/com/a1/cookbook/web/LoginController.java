@@ -23,14 +23,18 @@ public class LoginController {
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String welcomePage(Model model, @RequestParam String userId, String password){
+    public String welcomePage(Model model, @RequestParam String email, String password){
         RedirectView redirectView = new RedirectView();
-        if(!password.isEmpty() && !userId.isEmpty() && isNumeric(userId)){
-            boolean theChef = this.chefService.checkLogin(Long.parseLong(userId), password);
+        if(!password.isEmpty() && !email.isEmpty()){
+            boolean theChef = this.chefService.checkLogin(email, password);
             String chefName = "";
+            Long chefId;
+            System.out.println(theChef);
             if(theChef){
-                chefName = chefService.returnName(Long.parseLong(userId));
+                chefName = chefService.returnName(email);
+                chefId = chefService.returnId(email);
                 model.addAttribute("theChef", chefName);
+                model.addAttribute("ChefId", chefId);
                 return "welcome";
             }else{
                 return "login";
