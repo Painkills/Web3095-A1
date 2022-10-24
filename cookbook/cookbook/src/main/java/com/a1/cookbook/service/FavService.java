@@ -1,3 +1,14 @@
+//*********************************************************************************
+// * Project: Cookbook
+//        * Assignment: Assignment 1
+//        * Author(s): David Fortich
+//        * Student Number: 101314570
+//        * Date: October 21, 2022
+//        * Description: This class contains the methods that will be used by the Favorite Controller, pulling data
+//        from both the recipe and favorite repos in order to be able to provide all recipes, both those made by the user
+//        and those they've favorited. It also uses the RecipeBuilder to get the names of the recipe creators.
+//*********************************************************************************
+
 package com.a1.cookbook.service;
 
 

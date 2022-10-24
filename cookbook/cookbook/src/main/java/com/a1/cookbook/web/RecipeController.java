@@ -1,3 +1,10 @@
+//* Project: < cookbook.a1.com >
+//		* Assignment: Comp 3095 #1
+//		* Author(s): David Fortich, Mitesh Mitry, Ronal Rodriguez, Lemuel Javier
+//		* Student Number: 101314570, 101248745, 101314540, 101168735
+//		* Date: October 14, 2022
+//		* Description: The controller maps the requests related to favorite recipes and passes them to the service.
+
 package com.a1.cookbook.web;
 
 import com.a1.cookbook.data.Recipe;

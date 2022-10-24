@@ -1,9 +1,9 @@
 //* Project: < cookbook.a1.com >
 //		* Assignment: Comp 3095 #1
 //		* Author(s): David Fortich, Mitesh Mitry, Ronal Rodriguez, Lemuel Javier
-//		* Student Number: 101314570, , , 101168735
-//		* Date:
-//		* Description: <describe the java file and its purpose briefly only – 1 or 2 lines>
+//		* Student Number: 101314570, 101248745, 101314540, 101168735
+//		* Date: October 14, 2022
+//		* Description: This basically just tells Spring where to start scanning and runs the app itself.
 
 package com.a1.cookbook;
 

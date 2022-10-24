@@ -1,10 +1,17 @@
+//*********************************************************************************
+// * Project: Cookbook
+//        * Assignment: Assignment 1
+//        * Author(s): David Fortich
+//        * Student Number: 101314570
+//        * Date: October 14, 2022
+//        * Description: This is the RECIPE entity, which establishes the table name and columns for the database to use,
+//                        but also has attributes and basic get/set methods since it is a POJO. It is managed by Spring.
+//*********************************************************************************
+
+
 package com.a1.cookbook.data;
 
-import net.bytebuddy.implementation.bind.annotation.Default;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.persistence.*;
 

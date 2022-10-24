@@ -1,3 +1,13 @@
+//*********************************************************************************
+// * Project: Cookbook
+//        * Assignment: Assignment 1
+//        * Author(s): David Fortich
+//        * Student Number: 101314570
+//        * Date: October 14, 2022
+//        * Description: This was created initially as a means of seeing if database seed was successful and then to see
+//        what was actually in the database before frontend was implemented.
+//*********************************************************************************
+
 package com.a1.cookbook.util;
 
 import com.a1.cookbook.data.*;

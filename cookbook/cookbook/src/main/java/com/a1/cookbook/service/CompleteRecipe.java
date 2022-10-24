@@ -1,3 +1,14 @@
+//*********************************************************************************
+// * Project: Cookbook
+//        * Assignment: Assignment 1
+//        * Author(s): David Fortich
+//        * Student Number: 101314570
+//        * Date: October 21, 2022
+//        * Description: This class pulls together the information from recipe and chef in order to provide
+//        a recipe that also has the name of the user who created it, instead of just their id. This is leveraged
+//        by the Recipe and Favorite Services through the RecipeBuilder Util in order to deliver complete recipes to the frontend.
+//*********************************************************************************
+
 package com.a1.cookbook.service;
 
 public class CompleteRecipe {

@@ -1,3 +1,14 @@
+//*********************************************************************************
+// * Project: Cookbook
+//        * Assignment: Assignment 1
+//        * Author(s): David Fortich
+//        * Student Number: 101314570
+//        * Date: October 21, 2022
+//        * Description: This class contains the methods that will be used by the PlannedMeal Controller, pulling data
+//        from both the recipe, chef and mealPlan repos in order to be able to provide the table organized by date for
+//        each user containing the recipes they've planned for that date.'
+//*********************************************************************************
+
 package com.a1.cookbook.service;
 
 import com.a1.cookbook.data.*;

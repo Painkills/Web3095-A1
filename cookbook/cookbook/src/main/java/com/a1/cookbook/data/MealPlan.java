@@ -1,3 +1,15 @@
+//*********************************************************************************
+// * Project: Cookbook
+//        * Assignment: Assignment 1
+//        * Author(s): David Fortich
+//        * Student Number: 101314570
+//        * Date: October 14, 2022
+//        * Description: This is the MEAL_PLAN entity, which establishes the table name and columns for the database to use,
+//                        but also has attributes and basic get/set methods since it is a POJO. It is managed by Spring.
+//                        This is a linking table between Chef and Recipe, but also includes a date.
+//*********************************************************************************
+
+
 package com.a1.cookbook.data;
 
 import org.hibernate.annotations.SQLDelete;

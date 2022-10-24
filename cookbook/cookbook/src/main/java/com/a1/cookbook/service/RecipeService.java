@@ -1,3 +1,14 @@
+//*********************************************************************************
+// * Project: Cookbook
+//        * Assignment: Assignment 1
+//        * Author(s): David Fortich
+//        * Student Number: 101314570
+//        * Date: October 21, 2022
+//        * Description: This class contains the methods that will be used by the Recipe Controller, pulling data
+//        from the recipe repo in order to be able to provide all recipes, while using the recipe builder to include
+//        the creator's name and not just id.
+//*********************************************************************************
+
 package com.a1.cookbook.service;
 
 
@@ -15,12 +26,10 @@ import java.util.Optional;
 public class RecipeService {
 
     private final RecipeRepo recipeRepo;
-    private final FavoriteRepo favoriteRepo;
     private final RecipeBuilder builder;
 
-    public RecipeService(RecipeRepo recipeRepo, FavoriteRepo favoriteRepo, RecipeBuilder builder) {
+    public RecipeService(RecipeRepo recipeRepo, RecipeBuilder builder) {
         this.recipeRepo = recipeRepo;
-        this.favoriteRepo = favoriteRepo;
         this.builder = builder;
     }
 

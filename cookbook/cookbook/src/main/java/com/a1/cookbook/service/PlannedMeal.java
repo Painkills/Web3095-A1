@@ -1,3 +1,14 @@
+//*********************************************************************************
+// * Project: Cookbook
+//        * Assignment: Assignment 1
+//        * Author(s): David Fortich
+//        * Student Number: 101314570
+//        * Date: October 21, 2022
+//        * Description: This class pulls together the information from recipe and chef found in a mealPlan in order to provide
+//        a mealPlan that also has the name of the user who created it, and the information of the recipe instead of just the ids. This is leveraged
+//        by the PlannedMeal Service.
+//*********************************************************************************
+
 package com.a1.cookbook.service;
 
 import java.time.LocalDate;

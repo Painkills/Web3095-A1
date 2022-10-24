@@ -1,3 +1,13 @@
+//*********************************************************************************
+// * Project: Cookbook
+//        * Assignment: Assignment 1
+//        * Author(s): Ronal Rodriguez
+//        * Student Number: 101314570
+//        * Date: October 22, 2022
+//        * Description: This class consolidates the methods that will be needed when managing Chefs in the
+//        Login and Register actions through their respective controllers.
+//*********************************************************************************
+
 package com.a1.cookbook.service;
 
 import com.a1.cookbook.data.Chef;

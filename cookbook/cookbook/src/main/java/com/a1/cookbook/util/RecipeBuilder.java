@@ -1,3 +1,13 @@
+//*********************************************************************************
+// * Project: Cookbook
+//        * Assignment: Assignment 1
+//        * Author(s): David Fortich
+//        * Student Number: 101314570
+//        * Date: October 21, 2022
+//        * Description: This class builds up from a basic recipe, a completed recipe as per the CompeltedRecipe class. This is leveraged
+//        by the Recipe and Favorite Services through the RecipeBuilder Util in order to deliver complete recipes to the frontend.
+//*********************************************************************************
+
 package com.a1.cookbook.util;
 
 import com.a1.cookbook.data.Chef;

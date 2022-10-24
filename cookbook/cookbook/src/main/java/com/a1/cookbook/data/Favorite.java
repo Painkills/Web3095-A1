@@ -1,7 +1,15 @@
-package com.a1.cookbook.data;
+//*********************************************************************************
+// * Project: Cookbook
+//        * Assignment: Assignment 1
+//        * Author(s): David Fortich
+//        * Student Number: 101314570
+//        * Date: October 14, 2022
+//        * Description: This is the FAVORITE entity, which establishes the table name and columns for the database to use,
+//                        but also has attributes and basic get/set methods since it is a POJO. It is managed by Spring.
+//                        This is a linking table between Chef and Recipe.
+//*********************************************************************************
 
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+package com.a1.cookbook.data;
 
 import javax.persistence.*;
 
