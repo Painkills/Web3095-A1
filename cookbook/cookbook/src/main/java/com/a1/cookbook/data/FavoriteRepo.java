@@ -4,4 +4,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface FavoriteRepo extends CrudRepository<Favorite, Long> {
     Iterable<Favorite> findFavoritesByChefId(Long chefId);
+    Favorite findFavoriteByChefIdAndRecipeId(Long chefId, Long recipeId);
 }

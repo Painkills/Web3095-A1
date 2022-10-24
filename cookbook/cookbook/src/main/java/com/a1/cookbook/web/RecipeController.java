@@ -59,8 +59,10 @@ public class RecipeController {
     }
 
     @PostMapping("/delete")
-    private String deleteRecipe(@RequestParam("id") int recipeId) {
-        this.recipeService.deleteRecipe((long)recipeId);
+    private String deleteRecipe(@RequestParam("id") String recipeAndChefIds) {
+        String[] values = recipeAndChefIds.split(";");
+        Long recipeId = Long.parseLong(values[0]);
+        this.recipeService.deleteRecipe(recipeId);
         return "redirect:/recipe";
     }
 }

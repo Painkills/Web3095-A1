@@ -39,32 +39,6 @@ public class RecipeService {
         return completeRecipes;
     }
 
-    public List<CompleteRecipe> getFavoriteRecipesByChef(Long chefId) {
-        // Initialize list of recipes
-        List<CompleteRecipe> allFavList = new ArrayList<>();
-
-        // Get recipes created by the current chef by filtering by creatorId
-        Iterable<Recipe> allRecipes = recipeRepo.findRecipesByCreatorId(chefId);
-
-        // Build into "complete recipe" that contains creator name and id if not deleted
-        allRecipes.forEach(recipe -> {
-            if (!recipe.isDeleted()) allFavList.add(builder.buildCompleteRecipe(recipe));
-        });
-
-        // Get recipes favorited by the Chef
-        Iterable<Favorite> favList = favoriteRepo.findFavoritesByChefId(chefId);
-        favList.forEach(favorite -> {
-            // Locate the recipe the favorite refers to
-            Recipe recipe = recipeRepo.findById(favorite.getRecipeId()).get();
-
-            // If the recipe isn't one already added above, and not deleted, build and add it to All Favorites
-            if (Objects.equals(favorite.getChefId(), chefId)) {
-                if (!favorite.isDeleted()) allFavList.add(builder.buildCompleteRecipe(recipe));
-            }
-        });
-        return allFavList;
-    }
-
     public CompleteRecipe getCompleteRecipeById(Long recipeId) {
         Recipe recipe = this.recipeRepo.findById(recipeId).get();
         return this.builder.buildCompleteRecipe(recipe);

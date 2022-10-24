@@ -22,8 +22,8 @@
             <tbody>
                 <tr th:each="recipe: ${recipes}">
                     <td>
-                        <form th:action="(${req} == 'fav')? 'fav/delete' : 'recipe/delete'" method="POST">
-                            <button name="id" class="btn btn-danger" th:value="${recipe.getRecipeId()}">Delete</button>
+                        <form th:action="(${req} == 'favs')? 'fav/delete' : 'recipe/delete'" method="POST">
+                            <button name="id" class="btn btn-danger" th:value="(${recipe.getRecipeId()} + ';' + ${chefId})">Delete</button>
                         </form>
                     </td>
                     <td th:text="${recipe.getRecipeCategory()}">Category</td>

@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="FAVORITE")
-@SQLDelete(sql = "UPDATE FAVORITE SET DELETED = true WHERE RECIPE_ID=?")
+//@SQLDelete(sql = "UPDATE FAVORITE SET DELETED = true WHERE RECIPE_ID=?")
 public class Favorite {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
