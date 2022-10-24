@@ -2,10 +2,11 @@ package com.a1.cookbook.service;
 
 import com.a1.cookbook.data.Chef;
 import com.a1.cookbook.data.ChefRepo;
-import com.a1.cookbook.data.Recipe;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class ChefService {
@@ -15,23 +16,36 @@ public class ChefService {
     public ChefService(ChefRepo chefRepo) {
         this.chefRepo = chefRepo;
     }
-    public boolean checkLogin(Long chefId, String password){;
+    public boolean checkLogin(String email, String password){
+        AtomicBoolean trueOrFalse = new AtomicBoolean(false);
         try {
-
-            Optional<Chef> FoundChefId = this.chefRepo.findById(chefId);
-            Chef locatedChef = FoundChefId.orElseGet(FoundChefId::orElseThrow);
-            return locatedChef.getId() == chefId && locatedChef.getPassword().equals(password);
+//            Iterable<Recipe> allRecipes = this.recipeRepo.findAll();
+//
+//            // If not deleted, build into "complete recipe" that contains creator name and id
+//            allRecipes.forEach(recipe -> {
+//                if(!recipe.isDeleted()) completeRecipes.add(this.builder.buildCompleteRecipe(recipe));
+//            });
+            Iterable<Chef> FoundChefId = this.chefRepo.findAll();
+            FoundChefId.forEach(chef -> {
+                if(Objects.equals(chef.getEmail(), email) && Objects.equals(chef.getPassword(), password)){
+                    trueOrFalse.set(true);
+                }
+            });
         }catch(Exception e){
             return false;
         }
-
+        return trueOrFalse.get();
     }
-    public String returnName(Long chefId){
-
-        Optional<Chef> FoundChefId = this.chefRepo.findById(chefId);
-        Chef locatedChef = FoundChefId.orElseGet(FoundChefId::orElseThrow);
-
-        return locatedChef.getFirstName();
+    public String returnName(String email){
+        AtomicReference<Chef> capturedChef = new AtomicReference<>(new Chef());
+        Iterable<Chef> FoundChefId = this.chefRepo.findAll();
+        FoundChefId.forEach(chef -> {
+            System.out.println("this is the foreach email: "+ chef.getEmail()+ " this is the input email" + email);
+            if(Objects.equals(chef.getEmail(), email)){
+                capturedChef.set(chef);
+            }
+        });
+            return capturedChef.get().getFirstName();
     }
     public Chef addChef(String fName, String lName, String email, String password) {
         long FoundChefId = this.chefRepo.count();
