@@ -27,8 +27,8 @@
 <body>
 <ul>
     <li><a href="welcome">Home</a></li>
-    <li><a href="plan?chef=1">Planner</a></li>
-    <li><a href="fav?chef=1">Favorites</a></li>
+    <li><a th:href="'/plan?chef='+ ${ChefId}">Planner</a></li>
+    <li><a th:href="'/fav?chef='+${ChefId}">Favorites</a></li>
     <li><a href="/recipe/">Recipes</a></li>
     <li><a href="/recipe/create">Create Recipe</a></li>
 </ul>
@@ -42,8 +42,8 @@
 
     <div class="row">
         <div class="btn-group" role="group" aria-label="Group 1">
-            <a class="btn btn-outline-dark btn-block" href="/plan?chef=1">Meal Planner <p th:text="${theChef}"></p></a>
-            <a class="btn btn-outline-dark btn-block" href="/fav?chef=userid">Favorites <p th:text="${theChef}"></p></a>
+            <a class="btn btn-outline-dark btn-block" th:href="'/plan?chef='+ ${ChefId}">Meal Planner <p th:text="${theChef}"></p></a>
+            <a class="btn btn-outline-dark btn-block" th:href="'/fav?chef='+${ChefId}">Favorites <p th:text="${theChef}"></p></a>
         </div>
     </div>
     <button class="btn btn-primary" type="button" onclick="location.href = '/login'">Logout</button>
