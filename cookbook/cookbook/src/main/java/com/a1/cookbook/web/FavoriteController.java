@@ -33,6 +33,6 @@ public class FavoriteController {
     @PostMapping("/delete")
     private String deleteFav(@RequestParam("id") int recipeId) {
         this.recipeService.deleteRecipe((long)recipeId);
-        return "redirect:/recipe";
+        return "/";
     }
 }

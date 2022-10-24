@@ -20,8 +20,15 @@
         <input type="text" class="form-control" name="name" id="name" placeholder="Recipe Name"/>
       </div>
       <div class="mb-3">
-        <label for="category">Category</label>
-        <input type="text" class="form-control" name="category" id="category" placeholder="e.g. Main, Dessert, Drink, etc..."/>
+        <label for="category">Category: </label>
+        <select name="category" id="category" class="form-select form-select-sm mb-3">
+          <option selected="true" disabled="disabled"> Choose Category</option>
+          <option value="appetizers">Appetizers</option>
+          <option value="soup"> Soups </option>
+          <option value="main">Main</option>
+          <option value="dessert">Dessert</option>
+          <option value="drink">Drink</option>
+        </select>
       </div>
       <div class="mb-3">
         <label for="ingredients">Ingredients</label>

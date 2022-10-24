@@ -12,36 +12,40 @@
   </style>
 </head>
 <body>
-<h1 style="text-align: center">Create Recipe</h1>
-<form method="post">
-  <div class="small-middle-container">
-    <div class="mb-3">
-      <label for="recipeName">Recipe Name</label>
-      <input type="text" class="form-control" name="recipeName" id="recipeName" placeholder="Recipe Name"/>
+<h1 style="text-align: center">Create your Recipe</h1>
+  <form method="post">
+    <div class="small-middle-container">
+      <div class="mb-3">
+        <label for="name">Recipe Name</label>
+        <input type="text" class="form-control" name="name" id="name" placeholder="Recipe Name"/>
+      </div>
+      <div class="mb-3">
+        <label for="category">Category: </label>
+        <select name="category" id="category" class="form-select form-select-sm mb-3">
+          <option selected="true" disabled="disabled"> Choose Category</option>
+          <option value="appetizers">Appetizers</option>
+          <option value="soup"> Soups </option>
+          <option value="main">Main</option>
+          <option value="dessert">Dessert</option>
+          <option value="drink">Drink</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="ingredients">Ingredients</label>
+        <input type="text" class="form-control" name="ingredients" id="ingredients" placeholder="Ingredients"/>
+      </div>
+      <div class="mb-3">
+        <label for="instructions">Instructions</label>
+        <input type="text" class="form-control" name="instructions" id="instructions" placeholder="Instructions"/>
+      </div>
+      <div class="mb-3">
+        <label for="id">Creator ID</label>
+        <input type="number" class="form-control" name="id" id="id" placeholder="e.g. 1016374"/>
+      </div>
+      <button class="btn btn-primary">Submit</button>
     </div>
-    <div class="mb-3">
-      <label for="category">Category: </label>
-      <select name="categories" id="category" class="form-select form-select-sm mb-3">
-        <option selected="true" disabled="disabled"> Choose Category</option>
-        <option value="appetizers">Appetizers</option>
-        <option value="soup"> Soups </option>
-        <option value="main">Main</option>
-        <option value="dessert">Dessert</option>
-        <option value="drink">Drink</option>
-      </select>
-    </div>
-    <div class="mb-3">
-      <label for="instructions">Instructions</label>
-      <input type="text" class="form-control" name="instructions" id="instructions" placeholder="Instructions"/>
-    </div>
-    <div class="mb-3">
-      <label for="id">Creator ID</label>
-      <input type="text" class="form-control" name="id" id="id" placeholder="e.g. 1016374"/>
-    </div>
-    <button class="btn btn-primary">Submit</button>
-  </div>
 
-</form>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
-  </body>
-  </html>
+  </form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+</html>
