@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -60,8 +61,10 @@ public class RecipeController {
     }
 
     @PostMapping(value = {"/create", "/update"})
-    private String addRecipe(@RequestParam String name, String category, List<String> ingredients, String instructions, Long id) {
-        recipeService.saveOrUpdate(name, category, ingredients, instructions, id);
+    private String addRecipe(@RequestParam String name, String category, String ingredientString, String instructions, Long id) {
+        // turn single string to a List of Strings for ingredients
+        List<String> ingredients = Arrays.asList(ingredientString.split(","));
+        recipeService.save(name, category, ingredients, instructions, id);
         return "redirect:/recipe";
     }
 

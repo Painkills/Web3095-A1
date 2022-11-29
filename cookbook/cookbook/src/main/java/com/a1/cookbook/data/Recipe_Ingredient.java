@@ -3,10 +3,10 @@ package com.a1.cookbook.data;
 import javax.persistence.*;
 
 @Entity
-@Table(name="RECIPE_INGREDIENT")
+@Table(name="RECIPE_HAS_INGREDIENT")
 public class Recipe_Ingredient {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="RECIPE_HAS_INGREDIENT_ID")
     private long id;
 

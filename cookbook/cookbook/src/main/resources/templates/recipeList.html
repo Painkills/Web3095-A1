@@ -53,8 +53,12 @@
                     </td>
                     <td th:text="${recipe.getRecipeCategory()}">Category</td>
                     <td th:text="${recipe.getRecipeName()}">Recipe Name</td>
-                    <td th:text="${recipe.getRecipeIngredients()}">Ingredients</td>
-                    <td th:text="${recipe.getRecipeIngredients()}">Instructions</td>
+                    <td>
+                        <div th:each="ingredient : ${recipe.getRecipeIngredients()}">
+                            <p th:text="${ingredient}">Ingredient</p>
+                        </div>
+                    </td>
+                    <td th:text="${recipe.getRecipeInstructions()}">Instructions</td>
                     <td th:text="${recipe.getCreatorName()}">Creator</td>
                 </tr>
             </tbody>

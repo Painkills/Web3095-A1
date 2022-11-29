@@ -61,26 +61,31 @@ public class RecipeService {
         return this.recipeRepo.findById(recipeId).get();
     }
 
-    public Recipe saveOrUpdate(String name, String category, List<String> ingredients, String instructions, Long id) {
+    public void save(String name, String category, List<String> ingredients, String instructions, Long id) {
         Recipe recipe = new Recipe();
         recipe.setName(name);
         recipe.setCategory(category);
         recipe.setInstructions(instructions);
         recipe.setCreatorId(id);
-        System.out.println(recipe);
+        // save the recipe into recipeRepo
+        recipe = recipeRepo.save(recipe);
+        // Once created, take its Id
+        Long recipeId = recipe.getId();
 
-        // Deal with existing ingredients
+        // Get / create Ids for ingredient list passed by user
         List<Long> ingredientIds = new ArrayList<>();
         ingredients.forEach(ingredient -> {
             // Deal with diff spelling / capitalization / spacing from existing ingNames
             String cleanIngredientName = ingredient.trim().toLowerCase();
 
             // Search for the ingredient
-            Ingredient locatedIngredient = ingRepo.findIngredientByIngredientName(cleanIngredientName);
+            Ingredient locatedIngredient = this.ingRepo.findIngredientByIngredientName(cleanIngredientName);
+            System.out.println("Located Ingredient: " + locatedIngredient);
             // If null, create a new one and get id
             if (locatedIngredient == null) {
                 Ingredient newIngredient = new Ingredient();
                 newIngredient.setIngredientName(cleanIngredientName);
+                ingRepo.save(newIngredient);
                 ingredientIds.add(newIngredient.getId());
 
             // If it exists, get its id
@@ -89,9 +94,14 @@ public class RecipeService {
             }
         });
 
-        // Add / remove them from recipe_has_ingredient
-
-        return recipeRepo.save(recipe);
+        // Add them to recipe_has_ingredientRepo
+        ingredientIds.forEach(ingredientId -> {
+            System.out.println("Id I'm adding is: " + ingredientId);
+            Recipe_Ingredient recipe_ingredient = new Recipe_Ingredient();
+            recipe_ingredient.setRecipeId(recipeId);
+            recipe_ingredient.setIngredientId(ingredientId);
+            recIngRepo.save(recipe_ingredient);
+        });
     }
 
     public void deleteRecipe(Long recipeId) {

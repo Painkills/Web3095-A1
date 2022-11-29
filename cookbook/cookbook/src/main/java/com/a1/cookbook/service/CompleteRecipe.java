@@ -63,9 +63,7 @@ public class CompleteRecipe {
         this.recipeCategory = recipeCategory;
     }
 
-    public List<String> getRecipeIngredients() {
-        return recipeIngredients;
-    }
+    public List<String> getRecipeIngredients() { return recipeIngredients; }
 
     public void setRecipeIngredients(List<String> recipeIngredients) {
         this.recipeIngredients = recipeIngredients;
@@ -77,5 +75,18 @@ public class CompleteRecipe {
 
     public void setRecipeInstructions(String recipeInstructions) {
         this.recipeInstructions = recipeInstructions;
+    }
+
+    @Override
+    public String toString() {
+        return "CompleteRecipe{" +
+                "recipeId=" + recipeId +
+                ", recipeName='" + recipeName + '\'' +
+                ", recipeCategory='" + recipeCategory + '\'' +
+                ", recipeIngredients=" + recipeIngredients.size() +
+                ", recipeInstructions='" + recipeInstructions + '\'' +
+                ", creatorId=" + creatorId +
+                ", creatorName='" + creatorName + '\'' +
+                '}';
     }
 }

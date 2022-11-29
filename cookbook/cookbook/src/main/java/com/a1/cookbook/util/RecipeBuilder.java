@@ -47,9 +47,10 @@ public class RecipeBuilder {
         Iterable<Recipe_Ingredient> recipeIngredients = this.recIngRepo.findRecipe_IngredientByRecipeId(recipe.getId());
         List<String> ingredientList = new ArrayList<>();
         recipeIngredients.forEach(recipe_ingredient -> {
-            Optional<Ingredient> ingredient = this.ingRepo.findById(recipe_ingredient.getRecipeId());
+            Optional<Ingredient> ingredient = this.ingRepo.findById(recipe_ingredient.getIngredientId());
             Ingredient locatedIngredient = ingredient.orElseGet(ingredient::orElseThrow);
             if (!locatedIngredient.isDeleted()) {
+                System.out.println(locatedIngredient.getIngredientName());
                 ingredientList.add(locatedIngredient.getIngredientName());
             }
         });
@@ -57,7 +58,6 @@ public class RecipeBuilder {
         completeRecipe.setRecipeInstructions(recipe.getInstructions());
         completeRecipe.setCreatorId(recipe.getCreatorId());
         completeRecipe.setCreatorName(chefName);
-
         return completeRecipe;
     }
 }

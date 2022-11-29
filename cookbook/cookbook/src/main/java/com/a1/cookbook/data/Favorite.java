@@ -18,7 +18,7 @@ import javax.persistence.*;
 //@SQLDelete(sql = "UPDATE FAVORITE SET DELETED = true WHERE RECIPE_ID=?")
 public class Favorite {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="FAVORITE_ID")
     private Long id;
 
