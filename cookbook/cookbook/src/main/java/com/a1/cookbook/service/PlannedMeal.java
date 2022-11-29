@@ -81,6 +81,6 @@ public class PlannedMeal {
 
     @Override
     public String toString() {
-        return recipeCategory + ":" + recipeName;
+        return recipeCategory + ": " + recipeName;
     }
 }

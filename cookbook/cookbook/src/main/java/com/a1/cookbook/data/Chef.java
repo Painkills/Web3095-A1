@@ -17,7 +17,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="CHEF")
-@SQLDelete(sql = "UPDATE CHEF SET DELETED = true WHERE CHEF_ID=?")
+//@SQLDelete(sql = "UPDATE CHEF SET DELETED = true WHERE CHEF_ID=?")
 public class Chef {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

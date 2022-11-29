@@ -28,13 +28,17 @@ public class AppStartupEvent implements ApplicationListener<ApplicationReadyEven
     private final MealPlanRepo mealPlanRepo;
     private final FavoriteRepo favoriteRepo;
     private final PlannedMealService planService;
+    private final IngredientRepo ingredientRepo;
+    private final Recipe_IngredientRepo rec_ingRepo;
 
-    public AppStartupEvent(ChefRepo chefRepo, RecipeRepo recipeRepo, MealPlanRepo mealPlanRepo, FavoriteRepo favoriteRepo, PlannedMealService planService) {
+    public AppStartupEvent(ChefRepo chefRepo, RecipeRepo recipeRepo, MealPlanRepo mealPlanRepo, FavoriteRepo favoriteRepo, PlannedMealService planService, IngredientRepo ingredientRepo, Recipe_IngredientRepo rec_ingRepo) {
         this.chefRepo = chefRepo;
         this.recipeRepo = recipeRepo;
         this.mealPlanRepo = mealPlanRepo;
         this.favoriteRepo = favoriteRepo;
         this.planService = planService;
+        this.ingredientRepo = ingredientRepo;
+        this.rec_ingRepo = rec_ingRepo;
     }
 
     @Override
@@ -48,9 +52,14 @@ public class AppStartupEvent implements ApplicationListener<ApplicationReadyEven
         Iterable<Favorite> favorites = this.favoriteRepo.findAll();
         favorites.forEach(System.out::println);
         chefs.forEach(chef -> {
-            System.out.println(chef.getFirstName());
-            Map<LocalDate, List<PlannedMeal>> plans = planService.getPlannedMealsByIdAndDate(chef.getId(), LocalDate.parse("2022-10-20"));
+            System.out.println(chef.getFirstName() + "'s Meal Plans:");
+            Map<LocalDate, List<PlannedMeal>> plans = planService.getPlannedMealsByIdAndDate(chef.getId(), LocalDate.parse("2022-11-28"));
             plans.values().forEach(System.out::println);
         });
+        Iterable<Ingredient> ingredients = this.ingredientRepo.findAll();
+        ingredients.forEach(System.out::println);
+        Iterable<Recipe_Ingredient> recipeIngredients = this.rec_ingRepo.findAll();
+        System.out.println(recipeIngredients);
+        recipeIngredients.forEach(System.out::println);
     }
 }

@@ -20,10 +20,10 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name="MEAL_PLAN")
-@SQLDelete(sql = "UPDATE MEAL_PLAN SET DELETED = true WHERE RECIPE_ID=?")
+//@SQLDelete(sql = "UPDATE MEAL_PLAN SET DELETED = true WHERE RECIPE_ID=?")
 public class MealPlan {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="MEAL_PLAN_ID")
     private long id;
 

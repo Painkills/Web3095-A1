@@ -17,7 +17,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="RECIPE")
-@SQLDelete(sql = "UPDATE RECIPE SET DELETED = true WHERE RECIPE_ID=?")
+//@SQLDelete(sql = "UPDATE RECIPE SET DELETED = true WHERE RECIPE_ID=?")
 public class Recipe {
 
     @Id
@@ -30,9 +30,6 @@ public class Recipe {
 
     @Column(name="CATEGORY")
     private String category;
-
-    @Column(name = "INGREDIENTS")
-    private String ingredients;
 
     @Column(name = "INSTRUCTIONS")
     private String instructions;
@@ -65,14 +62,6 @@ public class Recipe {
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-    public String getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
     }
 
     public String getInstructions() {

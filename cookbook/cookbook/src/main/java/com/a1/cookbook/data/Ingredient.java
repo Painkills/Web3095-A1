@@ -1,12 +1,12 @@
 //*********************************************************************************
 // * Project: Cookbook
-//        * Assignment: Assignment 1
+//        * Assignment: Assignment 2
 //        * Author(s): David Fortich
 //        * Student Number: 101314570
-//        * Date: October 14, 2022
-//        * Description: This is the FAVORITE entity, which establishes the table name and columns for the database to use,
+//        * Date: November 28, 2022
+//        * Description: This is the INGREDIENT entity, which establishes the table name and columns for the database to use,
 //                        but also has attributes and basic get/set methods since it is a POJO. It is managed by Spring.
-//                        This is a linking table between Chef and Recipe.
+//                        This is a table that holds all the ingredients to be used by recipes and shopping lists.
 //*********************************************************************************
 
 package com.a1.cookbook.data;
@@ -14,21 +14,17 @@ package com.a1.cookbook.data;
 import javax.persistence.*;
 
 @Entity
-@Table(name="FAVORITE")
-//@SQLDelete(sql = "UPDATE FAVORITE SET DELETED = true WHERE RECIPE_ID=?")
-public class Favorite {
+@Table(name="INGREDIENT")
+public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="FAVORITE_ID")
+    @Column(name="INGREDIENT_ID")
     private Long id;
 
-    @Column(name="RECIPE_ID")
-    private Long recipeId;
+    @Column(name ="INGREDIENT_NAME")
+    private String ingredientName;
 
-    @Column(name="CHEF_ID")
-    private Long chefId;
-
-    @Column(name = "DELETED")
+    @Column(name ="DELETED")
     private boolean deleted = Boolean.FALSE;
 
     public Long getId() {
@@ -39,20 +35,12 @@ public class Favorite {
         this.id = id;
     }
 
-    public Long getRecipeId() {
-        return recipeId;
+    public String getIngredientName() {
+        return ingredientName;
     }
 
-    public void setRecipeId(Long recipeId) {
-        this.recipeId = recipeId;
-    }
-
-    public Long getChefId() {
-        return chefId;
-    }
-
-    public void setChefId(Long chefId) {
-        this.chefId = chefId;
+    public void setIngredientName(String ingredientName) {
+        this.ingredientName = ingredientName;
     }
 
     public boolean isDeleted() {
@@ -65,10 +53,10 @@ public class Favorite {
 
     @Override
     public String toString() {
-        return "Favorite{" +
+        return "Ingredient{" +
                 "id=" + id +
-                ", recipeId=" + recipeId +
-                ", chefId=" + chefId +
+                ", ingredientName='" + ingredientName + '\'' +
+                ", deleted=" + deleted +
                 '}';
     }
 }
