@@ -27,7 +27,36 @@ public class LoginController {
     public String loginPage(){
         return "login";
     }
-
+    @RequestMapping(value = "/resetPassword", method = RequestMethod.GET)
+    public String resetPasswordPage(){
+        return "loginToReset";
+    }
+    @RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
+    public String forgotPasswordPage(){
+        return "forgotPassword";
+    }
+    @RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+    public String resetPassword(Model model, @RequestParam String email, String password, String newPassword){
+        boolean passUpdated = this.chefService.updatePassword(email, password, newPassword);
+        System.out.println(passUpdated);
+        if(passUpdated){
+            return "redirect:/login";
+        }else{
+            model.addAttribute("wrongLabel", "Email or Password is incorrect");
+            return "loginToReset";
+        }
+    }
+    @RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
+    public String forgotPassword(Model model, @RequestParam String email, String name, String newPassword){
+        boolean passUpdated = this.chefService.forgotPassword(email, name, newPassword);
+        System.out.println(passUpdated);
+        if(passUpdated){
+            return "redirect:/login";
+        }else{
+            model.addAttribute("wrongLabel", "Email or Name is incorrect");
+            return "forgotPassword";
+        }
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String welcomePage(Model model, @RequestParam String email, String password){
@@ -48,9 +77,14 @@ public class LoginController {
             }
         }else{
             return "login";
+
         }
     }
 
+    @RequestMapping(value = "/welcome/{name}", method = RequestMethod.GET)
+    public String welcomePageParam(String chefName) {
+        return "welcome";
+    }
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
     public String welcomePage() {
 

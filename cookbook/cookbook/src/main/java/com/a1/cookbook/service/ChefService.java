@@ -86,4 +86,41 @@ public class ChefService {
         chef.setDeleted(true);
         this.chefRepo.save(chef);
     }
+    public Boolean updatePassword(String email, String password, String newPassword){
+        AtomicBoolean trueOrFalse = new AtomicBoolean(false);
+        try {
+            Iterable<Chef> FoundChefId = this.chefRepo.findAll();
+            FoundChefId.forEach(chef -> {
+                if(Objects.equals(chef.getEmail(), email) && Objects.equals(chef.getPassword(), password)){
+                    chef.setPassword(newPassword);
+                    this.chefRepo.save(chef);
+                    trueOrFalse.set(true);
+                }
+
+            }
+            );
+        }catch(Exception e){
+            return false;
+        }
+        return trueOrFalse.get();
+    }
+    public Boolean forgotPassword(String email, String name, String newPassword){
+        AtomicBoolean trueOrFalse = new AtomicBoolean(false);
+        try {
+            Iterable<Chef> FoundChefId = this.chefRepo.findAll();
+            FoundChefId.forEach(chef -> {
+                        if(Objects.equals(chef.getEmail(), email) && Objects.equals(chef.getFirstName(), name)){
+                            chef.setPassword(newPassword);
+                            this.chefRepo.save(chef);
+                            trueOrFalse.set(true);
+                        }
+
+                    }
+            );
+        }catch(Exception e){
+            return false;
+        }
+        return trueOrFalse.get();
+    }
+
 }
