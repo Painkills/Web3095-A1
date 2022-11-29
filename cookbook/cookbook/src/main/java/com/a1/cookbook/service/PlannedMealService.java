@@ -50,7 +50,7 @@ public class PlannedMealService {
         // get all MealPlans for the chef and put them in the corresponding arrays in plannedMealMap by date
         Iterable<MealPlan> mealPlans = this.mealPlanRepo.findMealPlanByChefId(chefId);
         mealPlans.forEach(mealPlan -> {
-            // Only process mealPlan if it is within one week of requested date range or deleted
+            // Only process mealPlan if it is within one week of requested date range or not deleted
             if (mealPlan.getDate().isBefore(requestedDate) || mealPlan.getDate().isAfter(endDate) || mealPlan.isDeleted()) {
                 return;
             }

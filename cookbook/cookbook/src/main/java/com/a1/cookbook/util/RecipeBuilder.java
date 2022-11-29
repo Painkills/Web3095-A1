@@ -10,9 +10,7 @@
 
 package com.a1.cookbook.util;
 
-import com.a1.cookbook.data.Chef;
-import com.a1.cookbook.data.ChefRepo;
-import com.a1.cookbook.data.Recipe;
+import com.a1.cookbook.data.*;
 import com.a1.cookbook.service.CompleteRecipe;
 import org.springframework.stereotype.Component;
 
@@ -23,9 +21,13 @@ import java.util.Optional;
 @Component
 public class RecipeBuilder {
     private final ChefRepo chefRepo;
+    private final Recipe_IngredientRepo recIngRepo;
+    private final IngredientRepo ingRepo;
 
-    public RecipeBuilder(ChefRepo chefRepo) {
+    public RecipeBuilder(ChefRepo chefRepo, Recipe_IngredientRepo recIngRepo, IngredientRepo ingRepo) {
         this.chefRepo = chefRepo;
+        this.recIngRepo = recIngRepo;
+        this.ingRepo = ingRepo;
     }
 
     public CompleteRecipe buildCompleteRecipe(Recipe recipe) {
@@ -40,7 +42,18 @@ public class RecipeBuilder {
         completeRecipe.setRecipeId(recipe.getId());
         completeRecipe.setRecipeName(recipe.getName());
         completeRecipe.setRecipeCategory(recipe.getCategory());
-        completeRecipe.setRecipeIngredients(recipe.getIngredients());
+
+        // get all ingredients for a recipe
+        Iterable<Recipe_Ingredient> recipeIngredients = this.recIngRepo.findRecipe_IngredientByRecipeId(recipe.getId());
+        List<String> ingredientList = new ArrayList<>();
+        recipeIngredients.forEach(recipe_ingredient -> {
+            Optional<Ingredient> ingredient = this.ingRepo.findById(recipe_ingredient.getRecipeId());
+            Ingredient locatedIngredient = ingredient.orElseGet(ingredient::orElseThrow);
+            if (!locatedIngredient.isDeleted()) {
+                ingredientList.add(locatedIngredient.getIngredientName());
+            }
+        });
+        completeRecipe.setRecipeIngredients(ingredientList);
         completeRecipe.setRecipeInstructions(recipe.getInstructions());
         completeRecipe.setCreatorId(recipe.getCreatorId());
         completeRecipe.setCreatorName(chefName);

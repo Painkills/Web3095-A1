@@ -60,7 +60,7 @@ public class RecipeController {
     }
 
     @PostMapping(value = {"/create", "/update"})
-    private String addRecipe(@RequestParam String name, String category, String ingredients, String instructions, Long id) {
+    private String addRecipe(@RequestParam String name, String category, List<String> ingredients, String instructions, Long id) {
         recipeService.saveOrUpdate(name, category, ingredients, instructions, id);
         return "redirect:/recipe";
     }

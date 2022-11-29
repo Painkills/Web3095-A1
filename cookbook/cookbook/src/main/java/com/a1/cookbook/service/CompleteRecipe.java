@@ -11,12 +11,14 @@
 
 package com.a1.cookbook.service;
 
+import java.util.List;
+
 public class CompleteRecipe {
 
     private Long recipeId;
     private String recipeName;
     private String recipeCategory;
-    private String recipeIngredients;
+    private List<String> recipeIngredients;
     private String recipeInstructions;
     private Long creatorId;
     private String creatorName;
@@ -61,11 +63,11 @@ public class CompleteRecipe {
         this.recipeCategory = recipeCategory;
     }
 
-    public String getRecipeIngredients() {
+    public List<String> getRecipeIngredients() {
         return recipeIngredients;
     }
 
-    public void setRecipeIngredients(String recipeIngredients) {
+    public void setRecipeIngredients(List<String> recipeIngredients) {
         this.recipeIngredients = recipeIngredients;
     }
 
