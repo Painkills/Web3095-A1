@@ -15,17 +15,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Objects;
+
 @Controller
 public class LoginController {
     public final ChefService chefService;
-
+    static private String theChefEmail = "";
     public LoginController(ChefService chefService) {
         this.chefService = chefService;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(){
-        return "login";
+        if(!Objects.equals(theChefEmail, "")) {
+            return "redirect:/welcome";
+        }
+        else{
+            return "login";
+        }
     }
     @RequestMapping(value = "/resetPassword", method = RequestMethod.GET)
     public String resetPasswordPage(){
@@ -67,11 +74,12 @@ public class LoginController {
             Long chefId;
             System.out.println(theChef);
             if(theChef){
+                theChefEmail = email;
                 chefName = chefService.returnName(email);
                 chefId = chefService.returnId(email);
                 model.addAttribute("theChef", chefName);
                 model.addAttribute("ChefId", chefId);
-                return "welcome";
+                return "redirect:/welcome";
             }else{
                 return "login";
             }
@@ -86,9 +94,24 @@ public class LoginController {
         return "welcome";
     }
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
-    public String welcomePage() {
-
-        return "welcome";
+    public String welcomePage(Model model) {
+        if(!Objects.equals(theChefEmail, "")) {
+            String chefName = "";
+            Long chefId;
+            chefName = chefService.returnName(theChefEmail);
+            chefId = chefService.returnId(theChefEmail);
+            model.addAttribute("theChef", chefName);
+            model.addAttribute("ChefId", chefId);
+            return "welcome";
+        }
+        else{
+            return "redirect:/login";
+        }
+    }
+    @RequestMapping(value = "/logout")
+    public String LogoutPage(){
+        theChefEmail = "";
+        return "redirect:/login";
     }
 
     public static boolean isNumeric(String str) {

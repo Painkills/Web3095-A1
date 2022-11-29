@@ -19,8 +19,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Service
-public class ChefService {
-
+public class ChefService{
     private final ChefRepo chefRepo;
 
     public ChefService(ChefRepo chefRepo) {
@@ -68,6 +67,7 @@ public class ChefService {
         });
             return capturedChef.get().getId();
     }
+
     public Chef addChef(String fName, String lName, String email, String password) {
         long FoundChefId = this.chefRepo.count();
         Chef newChef = new Chef();
