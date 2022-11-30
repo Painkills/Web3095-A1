@@ -14,26 +14,23 @@ package com.a1.cookbook.service;
 
 import com.a1.cookbook.data.*;
 import com.a1.cookbook.util.RecipeBuilder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @Service
 public class RecipeService {
 
     private final RecipeRepo recipeRepo;
-    private final Recipe_IngredientRepo recIngRepo;
-    private final IngredientRepo ingRepo;
+    private final RecipeIngredientRepo recipeIngredientRepo;
+    private final IngredientRepo ingredientRepo;
     private final RecipeBuilder builder;
 
-    public RecipeService(RecipeRepo recipeRepo, Recipe_IngredientRepo recIngRepo, IngredientRepo ingRepo, RecipeBuilder builder) {
+    public RecipeService(RecipeRepo recipeRepo, RecipeIngredientRepo recipeIngredientRepo, IngredientRepo ingredientRepo, RecipeBuilder builder) {
         this.recipeRepo = recipeRepo;
-        this.recIngRepo = recIngRepo;
-        this.ingRepo = ingRepo;
+        this.recipeIngredientRepo = recipeIngredientRepo;
+        this.ingredientRepo = ingredientRepo;
         this.builder = builder;
     }
 
@@ -79,13 +76,12 @@ public class RecipeService {
             String cleanIngredientName = ingredient.trim().toLowerCase();
 
             // Search for the ingredient
-            Ingredient locatedIngredient = this.ingRepo.findIngredientByIngredientName(cleanIngredientName);
-            System.out.println("Located Ingredient: " + locatedIngredient);
+            Ingredient locatedIngredient = this.ingredientRepo.findIngredientByIngredientName(cleanIngredientName);
             // If null, create a new one and get id
             if (locatedIngredient == null) {
                 Ingredient newIngredient = new Ingredient();
                 newIngredient.setIngredientName(cleanIngredientName);
-                ingRepo.save(newIngredient);
+                ingredientRepo.save(newIngredient);
                 ingredientIds.add(newIngredient.getId());
 
             // If it exists, get its id
@@ -96,11 +92,10 @@ public class RecipeService {
 
         // Add them to recipe_has_ingredientRepo
         ingredientIds.forEach(ingredientId -> {
-            System.out.println("Id I'm adding is: " + ingredientId);
-            Recipe_Ingredient recipe_ingredient = new Recipe_Ingredient();
+            RecipeIngredient recipe_ingredient = new RecipeIngredient();
             recipe_ingredient.setRecipeId(recipeId);
             recipe_ingredient.setIngredientId(ingredientId);
-            recIngRepo.save(recipe_ingredient);
+            recipeIngredientRepo.save(recipe_ingredient);
         });
     }
 
