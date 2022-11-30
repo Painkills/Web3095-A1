@@ -51,7 +51,7 @@ public class PlannedMealService {
         Iterable<MealPlan> mealPlans = this.mealPlanRepo.findMealPlanByChefId(chefId);
         mealPlans.forEach(mealPlan -> {
             // Only process mealPlan if it is within one week of requested date range or not deleted
-            if (mealPlan.getDate().isBefore(requestedDate) || mealPlan.getDate().isAfter(endDate) || mealPlan.isDeleted()) {
+            if (mealPlan.getDate().isBefore(requestedDate) || mealPlan.getDate().isAfter(endDate.minusDays(1)) || mealPlan.isDeleted()) {
                 return;
             }
             // Get recipe
