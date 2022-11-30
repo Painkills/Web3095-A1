@@ -29,9 +29,9 @@ public class AppStartupEvent implements ApplicationListener<ApplicationReadyEven
     private final FavoriteRepo favoriteRepo;
     private final PlannedMealService planService;
     private final IngredientRepo ingredientRepo;
-    private final Recipe_IngredientRepo rec_ingRepo;
+    private final RecipeIngredientRepo rec_ingRepo;
 
-    public AppStartupEvent(ChefRepo chefRepo, RecipeRepo recipeRepo, MealPlanRepo mealPlanRepo, FavoriteRepo favoriteRepo, PlannedMealService planService, IngredientRepo ingredientRepo, Recipe_IngredientRepo rec_ingRepo) {
+    public AppStartupEvent(ChefRepo chefRepo, RecipeRepo recipeRepo, MealPlanRepo mealPlanRepo, FavoriteRepo favoriteRepo, PlannedMealService planService, IngredientRepo ingredientRepo, RecipeIngredientRepo rec_ingRepo) {
         this.chefRepo = chefRepo;
         this.recipeRepo = recipeRepo;
         this.mealPlanRepo = mealPlanRepo;
@@ -58,7 +58,7 @@ public class AppStartupEvent implements ApplicationListener<ApplicationReadyEven
         });
         Iterable<Ingredient> ingredients = this.ingredientRepo.findAll();
         ingredients.forEach(System.out::println);
-        Iterable<Recipe_Ingredient> recipeIngredients = this.rec_ingRepo.findAll();
+        Iterable<RecipeIngredient> recipeIngredients = this.rec_ingRepo.findAll();
         System.out.println(recipeIngredients);
         recipeIngredients.forEach(System.out::println);
     }

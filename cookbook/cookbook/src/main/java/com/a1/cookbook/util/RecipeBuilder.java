@@ -21,10 +21,10 @@ import java.util.Optional;
 @Component
 public class RecipeBuilder {
     private final ChefRepo chefRepo;
-    private final Recipe_IngredientRepo recIngRepo;
+    private final RecipeIngredientRepo recIngRepo;
     private final IngredientRepo ingRepo;
 
-    public RecipeBuilder(ChefRepo chefRepo, Recipe_IngredientRepo recIngRepo, IngredientRepo ingRepo) {
+    public RecipeBuilder(ChefRepo chefRepo, RecipeIngredientRepo recIngRepo, IngredientRepo ingRepo) {
         this.chefRepo = chefRepo;
         this.recIngRepo = recIngRepo;
         this.ingRepo = ingRepo;
@@ -44,13 +44,12 @@ public class RecipeBuilder {
         completeRecipe.setRecipeCategory(recipe.getCategory());
 
         // get all ingredients for a recipe
-        Iterable<Recipe_Ingredient> recipeIngredients = this.recIngRepo.findRecipe_IngredientByRecipeId(recipe.getId());
+        Iterable<RecipeIngredient> recipeIngredients = this.recIngRepo.findRecipe_IngredientByRecipeId(recipe.getId());
         List<String> ingredientList = new ArrayList<>();
         recipeIngredients.forEach(recipe_ingredient -> {
             Optional<Ingredient> ingredient = this.ingRepo.findById(recipe_ingredient.getIngredientId());
             Ingredient locatedIngredient = ingredient.orElseGet(ingredient::orElseThrow);
             if (!locatedIngredient.isDeleted()) {
-                System.out.println(locatedIngredient.getIngredientName());
                 ingredientList.add(locatedIngredient.getIngredientName());
             }
         });

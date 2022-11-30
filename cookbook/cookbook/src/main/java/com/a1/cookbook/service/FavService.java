@@ -70,7 +70,6 @@ public class FavService {
         Favorite fav = new Favorite();
         fav.setChefId(chefId);
         fav.setRecipeId(recipeId);
-        System.out.println(fav);
         return favoriteRepo.save(fav);
     }
 
