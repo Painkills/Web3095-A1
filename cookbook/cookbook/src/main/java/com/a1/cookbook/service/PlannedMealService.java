@@ -74,5 +74,20 @@ public class PlannedMealService {
         });
         return plannedMealMap;
     }
+
+    public MealPlan saveOrUpdate(Long chefId, Long recipeId, LocalDate date){
+        MealPlan mealPlan = new MealPlan();
+        mealPlan.setChefId(chefId);
+        mealPlan.setRecipeId(recipeId);
+        mealPlan.setDate(date);
+        return this.mealPlanRepo.save(mealPlan);
+    }
+
+    public void deletePlan(Long chefId, Long recipeId, LocalDate date) {
+        // Soft delete the fav
+        MealPlan plan = this.mealPlanRepo.findMealPlanByChefIdAndAndRecipeIdAndDate(chefId, recipeId, date);
+        plan.setDeleted(true);
+        this.mealPlanRepo.save(plan);
+    }
 }
 

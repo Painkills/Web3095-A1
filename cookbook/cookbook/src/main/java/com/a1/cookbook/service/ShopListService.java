@@ -1,4 +1,4 @@
-package com.a1.cookbook.web;
+package com.a1.cookbook.service;
 
 import com.a1.cookbook.data.*;
 import org.springframework.stereotype.Service;

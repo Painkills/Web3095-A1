@@ -15,6 +15,9 @@ package com.a1.cookbook.data;
 
 import org.springframework.data.repository.CrudRepository;
 
+import java.time.LocalDate;
+
 public interface MealPlanRepo extends CrudRepository<MealPlan, Long> {
     Iterable<MealPlan> findMealPlanByChefId(Long ChefId);
+    MealPlan findMealPlanByChefIdAndAndRecipeIdAndDate(Long chefId, Long recipeId, LocalDate date);
 }

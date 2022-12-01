@@ -32,7 +32,7 @@ public class FavoriteController {
         Long chefId = (long) chef;
         List<CompleteRecipe> recipes = this.favService.getFavoriteRecipesByChef(chefId);
         model.addAttribute("chefId", chefId);
-        model.addAttribute("req", "favs");
+        model.addAttribute("req", "fav");
         model.addAttribute("title", "your Favorite Recipes!");
         model.addAttribute("recipes", recipes);
         return "recipeList";
@@ -40,10 +40,11 @@ public class FavoriteController {
 
     @PostMapping("/delete")
     private String deleteFav(@RequestParam("id") String recipeAndChefIds) {
+        System.out.println("RecipeController received: " + recipeAndChefIds + " as its delete ID parameter");
         String[] values = recipeAndChefIds.split(";");
         Long recipeId = Long.parseLong(values[0]);
-        Long chefId = Long.parseLong(values[0]);
+        Long chefId = Long.parseLong(values[1]);
         this.favService.deleteFav(chefId, recipeId);
-        return "/";
+        return "redirect:index/fav?chef=" + chefId;
     }
 }
