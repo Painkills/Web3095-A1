@@ -46,7 +46,13 @@
                         <!--<p th:text="${day.getKey()}">Date</p>-->
                     </th>
                     <td>
-                        <p th:each="meal: ${meals}" th:text="${meal}">Meal</p>
+                        <div style="display: flex; justify-content: space-between" th:each="meal: ${meals}">
+                            <p th:text="${meal}">Meal</p>
+                            <form th:action="${req + '/delete'}" method="POST">
+                                <button name="id" class="btn btn-danger" th:value="${meal.getRecipeId() + ';' + meal.getChefId() + ';' + meal.getDate()}">Delete</button>
+                            </form>
+                        </div>
+
                     </td>
                 </tr>
             </tbody>

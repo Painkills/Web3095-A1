@@ -37,17 +37,19 @@ public class PlannedMealController {
         date = (dateString == null)? LocalDate.now() : LocalDate.parse(dateString);
 
         Map<LocalDate, List<PlannedMeal>> mealPlans = this.mealService.getPlannedMealsByIdAndDate(chefId, date);
+        model.addAttribute("req", "plan");
         model.addAttribute("mealPlans", mealPlans);
         return "mealPlanner";
     }
 
     @PostMapping("/delete")
-    private String deletePlan(@RequestParam("id") String recipeAndChefIds) {
-        String[] values = recipeAndChefIds.split(";");
+    private String deletePlan(@RequestParam("id") String recipeChefAndDate) {
+        System.out.println("What deletePlan() got for deleting is: " + recipeChefAndDate);
+        String[] values = recipeChefAndDate.split(";");
         Long recipeId = Long.parseLong(values[0]);
-        Long chefId = Long.parseLong(values[0]);
-        LocalDate date = LocalDate.of(2022, 12, 4);
+        Long chefId = Long.parseLong(values[1]);
+        LocalDate date = LocalDate.parse(values[2]);
         this.mealService.deletePlan(chefId, recipeId, date);
-        return "/";
+        return "redirect:/plan?chef=" + chefId;
     }
 }

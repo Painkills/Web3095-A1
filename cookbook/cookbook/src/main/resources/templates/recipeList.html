@@ -46,11 +46,6 @@
             </thead>
             <tbody>
                 <tr th:each="recipe: ${recipes}">
-                    <td>
-                        <form th:action="${req + '/delete'}" method="POST">
-                            <button name="id" class="btn btn-danger" th:value="${recipe.getRecipeId() + ';' + chefId}">Delete</button>
-                        </form>
-                    </td>
                     <td th:text="${recipe.getRecipeCategory()}">Category</td>
                     <td th:text="${recipe.getRecipeName()}">Recipe Name</td>
                     <td>
@@ -60,6 +55,11 @@
                     </td>
                     <td th:text="${recipe.getRecipeInstructions()}">Instructions</td>
                     <td th:text="${recipe.getCreatorName()}">Creator</td>
+                    <td>
+                        <form th:action="${req + '/delete'}" method="POST">
+                            <button name="id" class="btn btn-danger" th:value="${recipe.getRecipeId() + ';' + chefId}">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>
