@@ -40,13 +40,13 @@ public class FavService {
         // Initialize list of recipes
         List<CompleteRecipe> allFavList = new ArrayList<>();
 
-        // Get recipes created by the current chef by filtering by creatorId
-        Iterable<Recipe> allRecipes = recipeRepo.findRecipesByCreatorId(chefId);
-
-        // Build into "complete recipe" that contains creator name and id if not deleted
-        allRecipes.forEach(recipe -> {
-            if (!recipe.isDeleted()) allFavList.add(builder.buildCompleteRecipe(recipe));
-        });
+//        // Get recipes created by the current chef by filtering by creatorId
+//        Iterable<Recipe> allRecipes = recipeRepo.findRecipesByCreatorId(chefId);
+//
+//        // Build into "complete recipe" that contains creator name and id if not deleted
+//        allRecipes.forEach(recipe -> {
+//            if (!recipe.isDeleted()) allFavList.add(builder.buildCompleteRecipe(recipe));
+//        });
 
         // Get recipes favorited by the Chef
         Iterable<Favorite> favList = favoriteRepo.findFavoritesByChefId(chefId);
@@ -75,7 +75,6 @@ public class FavService {
 
     public void deleteFav(Long chefId, Long recipeId) {
         // Soft delete the fav
-        System.out.println(chefId + " " + recipeId);
         Favorite favorite = this.favoriteRepo.findFavoriteByChefIdAndRecipeId(chefId, recipeId);
         favorite.setDeleted(true);
         this.favoriteRepo.save(favorite);

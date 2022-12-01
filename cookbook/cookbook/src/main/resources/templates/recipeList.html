@@ -26,8 +26,8 @@
 <body>
 <ul>
     <li><a href="../welcome">Home</a></li>
-    <li><a th:href="'/plan?chef='+ ${ChefId}">Planner</a></li>
-    <li><a th:href="'/fav?chef='+${ChefId}">Favorites</a></li>
+    <li><a th:href="'/plan?chef='+ ${chefId}">Planner</a></li>
+    <li><a th:href="'/fav?chef='+${chefId}">Favorites</a></li>
     <li><a href="/recipe">Recipes</a></li>
     <li><a href="/recipe/create">Create Recipe</a></li>
 </ul>
@@ -46,11 +46,6 @@
             </thead>
             <tbody>
                 <tr th:each="recipe: ${recipes}">
-                    <td>
-                        <form action="recipe/delete" method="POST">
-                            <button name="id" class="btn btn-danger" th:value="${recipe.getRecipeId()}">Delete</button>
-                        </form>
-                    </td>
                     <td th:text="${recipe.getRecipeCategory()}">Category</td>
                     <td th:text="${recipe.getRecipeName()}">Recipe Name</td>
                     <td>
@@ -60,6 +55,11 @@
                     </td>
                     <td th:text="${recipe.getRecipeInstructions()}">Instructions</td>
                     <td th:text="${recipe.getCreatorName()}">Creator</td>
+                    <td>
+                        <form th:action="${req + '/delete'}" method="POST">
+                            <button name="id" class="btn btn-danger" th:value="${recipe.getRecipeId() + ';' + chefId}">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>

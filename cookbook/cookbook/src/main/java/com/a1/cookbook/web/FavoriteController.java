@@ -11,10 +11,7 @@ import com.a1.cookbook.service.FavService;
 import com.a1.cookbook.service.CompleteRecipe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,12 +24,12 @@ public class FavoriteController {
         this.favService = favService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping(value={"/", ""})
     public String getFavorites(@RequestParam(value = "chef")int chef, Model model) {
         Long chefId = (long) chef;
         List<CompleteRecipe> recipes = this.favService.getFavoriteRecipesByChef(chefId);
         model.addAttribute("chefId", chefId);
-        model.addAttribute("req", "favs");
+        model.addAttribute("req", "fav");
         model.addAttribute("title", "your Favorite Recipes!");
         model.addAttribute("recipes", recipes);
         return "recipeList";
@@ -42,8 +39,8 @@ public class FavoriteController {
     private String deleteFav(@RequestParam("id") String recipeAndChefIds) {
         String[] values = recipeAndChefIds.split(";");
         Long recipeId = Long.parseLong(values[0]);
-        Long chefId = Long.parseLong(values[0]);
+        Long chefId = Long.parseLong(values[1]);
         this.favService.deleteFav(chefId, recipeId);
-        return "/";
+        return "redirect:/fav?chef=1";
     }
 }

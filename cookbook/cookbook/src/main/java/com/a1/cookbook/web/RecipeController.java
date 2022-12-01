@@ -29,7 +29,7 @@ public class RecipeController {
     @GetMapping(value = {"", "/"})
     private String getAllRecipes(Model model) {
         List<CompleteRecipe> recipes = recipeService.getAllRecipes();
-        model.addAttribute("req", "viewAll");
+        model.addAttribute("req", "recipe");
         model.addAttribute("title", "the Recipinomicon!");
         model.addAttribute("recipes", recipes);
         return "recipeList";
@@ -70,6 +70,7 @@ public class RecipeController {
 
     @PostMapping("/delete")
     private String deleteRecipe(@RequestParam("id") String recipeAndChefIds) {
+        System.out.println("RecipeController received: " + recipeAndChefIds + " as its delete ID parameter");
         String[] values = recipeAndChefIds.split(";");
         Long recipeId = Long.parseLong(values[0]);
         this.recipeService.deleteRecipe(recipeId);

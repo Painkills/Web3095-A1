@@ -12,6 +12,7 @@ import com.a1.cookbook.service.PlannedMealService;
 import net.bytebuddy.asm.Advice;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,7 +37,19 @@ public class PlannedMealController {
         date = (dateString == null)? LocalDate.now() : LocalDate.parse(dateString);
 
         Map<LocalDate, List<PlannedMeal>> mealPlans = this.mealService.getPlannedMealsByIdAndDate(chefId, date);
+        model.addAttribute("req", "plan");
         model.addAttribute("mealPlans", mealPlans);
         return "mealPlanner";
+    }
+
+    @PostMapping("/delete")
+    private String deletePlan(@RequestParam("id") String recipeChefAndDate) {
+        System.out.println("What deletePlan() got for deleting is: " + recipeChefAndDate);
+        String[] values = recipeChefAndDate.split(";");
+        Long recipeId = Long.parseLong(values[0]);
+        Long chefId = Long.parseLong(values[1]);
+        LocalDate date = LocalDate.parse(values[2]);
+        this.mealService.deletePlan(chefId, recipeId, date);
+        return "redirect:/plan?chef=" + chefId;
     }
 }
