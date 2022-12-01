@@ -76,4 +76,15 @@ public class RecipeController {
         this.recipeService.deleteRecipe(recipeId);
         return "redirect:/recipe";
     }
+
+    @GetMapping(value = {"/viewIngredients/{recipeId}"})
+    private String viewIngredients(@PathVariable("recipeId") int recipeId, Model model) {
+        System.out.println("Recipe Controller Received: " + recipeId + " for viewIngredient parameter");
+        CompleteRecipe recipe = recipeService.getCompleteRecipeById((long)recipeId);
+        String[] ingredients = recipe.getRecipeIngredients().toArray(new String[0]);
+        model.addAttribute("title", recipe.getRecipeName() + "Ingredients");
+        model.addAttribute("recipe", recipe);
+        model.addAttribute("ingredients", ingredients);
+        return "viewIngredients";
+    }
 }

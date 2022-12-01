@@ -36,12 +36,12 @@
         <table class="table table-striped">
             <thead>
                 <tr class="table-dark">
-                    <th></th>
                     <th scope="col">Category</th>
                     <th scope="col">Recipe</th>
                     <th scope="col">Ingredients</th>
                     <th scope="col">Instructions</th>
                     <th scope="col">Created By</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -58,6 +58,12 @@
                     <td>
                         <form th:action="${req + '/delete'}" method="POST">
                             <button name="id" class="btn btn-danger" th:value="${recipe.getRecipeId() + ';' + chefId}">Delete</button>
+                        </form>
+                        <form action="fav" method="GET">
+                            <button name="id" class="btn btn-warning">Favorite</button>
+                        </form>
+                        <form th:action="${req + '/viewIngredients'}" method="GET">
+                            <button name="id" class="btn btn-info" th:value='${recipe.getRecipeId()}'>View Ingredients</button>
                         </form>
                     </td>
                 </tr>
@@ -86,6 +92,6 @@
             <td th:text="${recipe.getCreatorName()}">Creator</td>
         </tr>
     </table>-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous" />
 </body>
 </html>
