@@ -77,8 +77,8 @@ public class RecipeController {
         return "redirect:/recipe";
     }
 
-    @GetMapping(value = {"/viewIngredients/{recipeId}"})
-    private String viewIngredients(@PathVariable("recipeId") int recipeId, Model model) {
+    @GetMapping(value = {"/viewIngredients"})
+    private String viewIngredients(@RequestParam("id") int recipeId, Model model) {
         System.out.println("Recipe Controller Received: " + recipeId + " for viewIngredient parameter");
         CompleteRecipe recipe = recipeService.getCompleteRecipeById((long)recipeId);
         String[] ingredients = recipe.getRecipeIngredients().toArray(new String[0]);

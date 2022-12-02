@@ -63,7 +63,7 @@
                             <button name="id" class="btn btn-warning">Favorite</button>
                         </form>
                         <form th:action="${req + '/viewIngredients'}" method="GET">
-                            <button name="id" class="btn btn-info" th:value='${recipe.getRecipeId()}'>View Ingredients</button>
+                            <button name="id" class="btn btn-info" th:value="${recipe.getRecipeId()}">View Ingredients</button>
                         </form>
                     </td>
                 </tr>
