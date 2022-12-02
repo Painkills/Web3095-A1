@@ -25,7 +25,7 @@ import java.util.Map;
 @RequestMapping("/plan")
 public class PlannedMealController {
     public final PlannedMealService mealService;
-
+    static Long theChefId = 0L;
     public PlannedMealController(PlannedMealService mealService) {
         this.mealService = mealService;
     }
@@ -34,11 +34,12 @@ public class PlannedMealController {
     public String getPlans(@RequestParam(value = "chef")String chef, @RequestParam(value="date", required = false) String dateString, Model model) {
         Long chefId = Long.parseLong(chef);
         LocalDate date;
+        theChefId = chefId;
         date = (dateString == null)? LocalDate.now() : LocalDate.parse(dateString);
-
         Map<LocalDate, List<PlannedMeal>> mealPlans = this.mealService.getPlannedMealsByIdAndDate(chefId, date);
         model.addAttribute("req", "plan");
         model.addAttribute("mealPlans", mealPlans);
+        model.addAttribute("ChefId", theChefId);
         return "mealPlanner";
     }
 

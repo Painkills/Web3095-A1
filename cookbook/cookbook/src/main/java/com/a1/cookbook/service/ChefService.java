@@ -54,7 +54,28 @@ public class ChefService{
                 capturedChef.set(chef);
             }
         });
-            return capturedChef.get().getFirstName();
+        return capturedChef.get().getFirstName();
+    }
+    public String returnLastName(String email){
+        AtomicReference<Chef> capturedChef = new AtomicReference<>(new Chef());
+        Iterable<Chef> FoundChefId = this.chefRepo.findAll();
+        FoundChefId.forEach(chef -> {
+            System.out.println("this is the foreach email: "+ chef.getEmail()+ " this is the input email" + email);
+            if(Objects.equals(chef.getEmail(), email)){
+                capturedChef.set(chef);
+            }
+        });
+        return capturedChef.get().getLastName();
+    }
+    public String returnEmail(Long id){
+        AtomicReference<Chef> capturedChef = new AtomicReference<>(new Chef());
+        Iterable<Chef> FoundChefId = this.chefRepo.findAll();
+        FoundChefId.forEach(chef -> {
+            if(Objects.equals(chef.getId(), id)){
+                capturedChef.set(chef);
+            }
+        });
+        return capturedChef.get().getEmail();
     }
     public Long returnId(String email){
         AtomicReference<Chef> capturedChef = new AtomicReference<>(new Chef());
@@ -65,7 +86,7 @@ public class ChefService{
                 capturedChef.set(chef);
             }
         });
-            return capturedChef.get().getId();
+        return capturedChef.get().getId();
     }
 
     public Chef addChef(String fName, String lName, String email, String password) {
@@ -79,6 +100,24 @@ public class ChefService{
         System.out.println("This is the way: " + newChef);
         return this.chefRepo.save(newChef);
     }
+    public Boolean updateChef(Long theChefID, String email, String firstName, String lastName){
+        Chef chef = this.chefRepo.findById(theChefID).get();
+
+        if(email.isEmpty() && firstName.isEmpty() && lastName.isEmpty()){
+            return false;
+        }
+        if(!email.isEmpty()){
+            chef.setEmail(email);
+        }
+        if(!firstName.isEmpty()){
+            chef.setFirstName(firstName);
+        }
+        if(!lastName.isEmpty()){
+            chef.setLastName(lastName);
+        }
+        this.chefRepo.save(chef);
+        return true;
+    }
 
     public void deleteChef(Long chefId) {
         // Soft delete the recipe
@@ -91,13 +130,13 @@ public class ChefService{
         try {
             Iterable<Chef> FoundChefId = this.chefRepo.findAll();
             FoundChefId.forEach(chef -> {
-                if(Objects.equals(chef.getEmail(), email) && Objects.equals(chef.getPassword(), password)){
-                    chef.setPassword(newPassword);
-                    this.chefRepo.save(chef);
-                    trueOrFalse.set(true);
-                }
+                        if(Objects.equals(chef.getEmail(), email) && Objects.equals(chef.getPassword(), password)){
+                            chef.setPassword(newPassword);
+                            this.chefRepo.save(chef);
+                            trueOrFalse.set(true);
+                        }
 
-            }
+                    }
             );
         }catch(Exception e){
             return false;
