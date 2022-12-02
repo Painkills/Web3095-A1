@@ -15,4 +15,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface IngredientRepo extends CrudRepository<Ingredient, Long> {
     Ingredient findIngredientByIngredientName(String ingredientName);
+
+    //Iterable<Ingredient> findIngredientByRecipeId(Long recipeId);
 }

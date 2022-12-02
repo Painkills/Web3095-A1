@@ -21,7 +21,6 @@ import java.util.List;
 @RequestMapping("/recipe")
 public class RecipeController {
     public final RecipeService recipeService;
-
     public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
@@ -82,9 +81,11 @@ public class RecipeController {
         System.out.println("Recipe Controller Received: " + recipeId + " for viewIngredient parameter");
         CompleteRecipe recipe = recipeService.getCompleteRecipeById((long)recipeId);
         String[] ingredients = recipe.getRecipeIngredients().toArray(new String[0]);
+        //Ingredient ingredientsId = recipeService.getIngredientByRecipeId((long)recipeId);
         model.addAttribute("title", recipe.getRecipeName() + "Ingredients");
         model.addAttribute("recipe", recipe);
         model.addAttribute("ingredients", ingredients);
+        //model.addAttribute("ingredientId", ingredientsId);
         return "viewIngredients";
     }
 }

@@ -37,7 +37,15 @@
   <table>
     <tr th:each="ingredient : ${ingredients}">
       <td th:text="${ingredient}">Ingredient</td>
-      <td><button class="btn btn-success">Add to Shopping List</button></td>
+      <td>
+        <form th:action="${'/addToShopList'}" method="POST">
+          <button name="id" class="btn btn-success">Add to Shopping List</button>
+          <!--
+          Add to Button
+          th:onclick="console.log(${ingredientId})" th:value="${recipe.getCreatorId()} + ';' + ${ingredientId}"
+          -->
+        </form>
+      </td>
     </tr>
   </table>
 </div>

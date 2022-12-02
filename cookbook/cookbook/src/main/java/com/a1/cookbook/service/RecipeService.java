@@ -58,6 +58,8 @@ public class RecipeService {
         return this.recipeRepo.findById(recipeId).get();
     }
 
+    //public Ingredient getIngredientByRecipeId(Long recipeId) { return this.ingredientRepo.findById(recipeId).get(); }
+
     public void save(String name, String category, List<String> ingredients, String instructions, Long id) {
         Recipe recipe = new Recipe();
         recipe.setName(name);
