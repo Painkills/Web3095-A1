@@ -38,7 +38,7 @@ public class RecipeController {
     @GetMapping("/{recipeId}")
     private String getARecipe(@PathVariable("recipeId") int recipeId, Model model) {
         CompleteRecipe recipe = recipeService.getCompleteRecipeById((long)recipeId);
-        model.addAttribute("req", "view");
+        model.addAttribute("req", "recipe");
         model.addAttribute("title", recipe.getRecipeName() + "!");
         model.addAttribute("recipe", recipe);
         return "singleRecipe";
@@ -54,6 +54,7 @@ public class RecipeController {
     @GetMapping (value = {"/update/{recipeId}"})
     private String updateRecipePage(@PathVariable("recipeId") int recipeId, Model model) {
         Recipe recipe = recipeService.getRecipeById((long)recipeId);
+        model.addAttribute("chefId", recipe.getCreatorId());
         model.addAttribute("req", "edit");
         model.addAttribute("title", "your chance to edit " + recipe.getName() + "!");
         model.addAttribute("recipe", recipe);

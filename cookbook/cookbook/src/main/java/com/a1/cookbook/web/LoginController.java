@@ -78,7 +78,7 @@ public class LoginController {
                 chefName = chefService.returnName(email);
                 chefId = chefService.returnId(email);
                 model.addAttribute("theChef", chefName);
-                model.addAttribute("ChefId", chefId);
+                model.addAttribute("chefId", chefId);
                 return "redirect:/welcome";
             }else{
                 return "login";
@@ -101,7 +101,7 @@ public class LoginController {
             chefName = chefService.returnName(theChefEmail);
             chefId = chefService.returnId(theChefEmail);
             model.addAttribute("theChef", chefName);
-            model.addAttribute("ChefId", chefId);
+            model.addAttribute("chefId", chefId);
             return "welcome";
         }
         else{
