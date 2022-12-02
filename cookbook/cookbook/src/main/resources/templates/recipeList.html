@@ -50,7 +50,7 @@
                     <td th:text="${recipe.getRecipeName()}">Recipe Name</td>
                     <td>
                         <div th:each="ingredient : ${recipe.getRecipeIngredients()}">
-                            <p th:text="${ingredient}">Ingredient</p>
+                            <p th:text="${ingredient.getIngredientName()}">Ingredient</p>
                         </div>
                     </td>
                     <td th:text="${recipe.getRecipeInstructions()}">Instructions</td>
@@ -63,7 +63,7 @@
                             <button name="id" class="btn btn-warning">Favorite</button>
                         </form>
                         <form th:action="${req + '/viewIngredients'}" method="GET">
-                            <button name="id" class="btn btn-info" th:value="${recipe.getRecipeId()}">View Ingredients</button>
+                            <button name="id" class="btn btn-info" th:value="${'' + recipe.getRecipeId()}">View Ingredients</button>
                         </form>
                     </td>
                 </tr>

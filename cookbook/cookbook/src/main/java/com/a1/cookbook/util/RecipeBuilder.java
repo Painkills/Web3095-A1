@@ -45,12 +45,12 @@ public class RecipeBuilder {
 
         // get all ingredients for a recipe
         Iterable<RecipeIngredient> recipeIngredients = this.recIngRepo.findRecipe_IngredientByRecipeId(recipe.getId());
-        List<String> ingredientList = new ArrayList<>();
+        List<Ingredient> ingredientList = new ArrayList<>();
         recipeIngredients.forEach(recipe_ingredient -> {
             Optional<Ingredient> ingredient = this.ingRepo.findById(recipe_ingredient.getIngredientId());
             Ingredient locatedIngredient = ingredient.orElseGet(ingredient::orElseThrow);
             if (!locatedIngredient.isDeleted()) {
-                ingredientList.add(locatedIngredient.getIngredientName());
+                ingredientList.add(locatedIngredient);
             }
         });
         completeRecipe.setRecipeIngredients(ingredientList);

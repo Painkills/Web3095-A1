@@ -7,9 +7,11 @@
 
 package com.a1.cookbook.web;
 
+import com.a1.cookbook.data.Ingredient;
 import com.a1.cookbook.data.Recipe;
 import com.a1.cookbook.service.CompleteRecipe;
 import com.a1.cookbook.service.RecipeService;
+import com.a1.cookbook.service.ShopListService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +23,11 @@ import java.util.List;
 @RequestMapping("/recipe")
 public class RecipeController {
     public final RecipeService recipeService;
-    public RecipeController(RecipeService recipeService) {
+    public final ShopListService shopListService;
+
+    public RecipeController(RecipeService recipeService, ShopListService shopListService) {
         this.recipeService = recipeService;
+        this.shopListService = shopListService;
     }
 
     @GetMapping(value = {"", "/"})
@@ -69,7 +74,6 @@ public class RecipeController {
 
     @PostMapping("/delete")
     private String deleteRecipe(@RequestParam("id") String recipeAndChefIds) {
-        System.out.println("RecipeController received: " + recipeAndChefIds + " as its delete ID parameter");
         String[] values = recipeAndChefIds.split(";");
         Long recipeId = Long.parseLong(values[0]);
         this.recipeService.deleteRecipe(recipeId);
@@ -77,15 +81,21 @@ public class RecipeController {
     }
 
     @GetMapping(value = {"/viewIngredients"})
-    private String viewIngredients(@RequestParam("id") int recipeId, Model model) {
-        System.out.println("Recipe Controller Received: " + recipeId + " for viewIngredient parameter");
-        CompleteRecipe recipe = recipeService.getCompleteRecipeById((long)recipeId);
-        String[] ingredients = recipe.getRecipeIngredients().toArray(new String[0]);
-        //Ingredient ingredientsId = recipeService.getIngredientByRecipeId((long)recipeId);
+    private String viewIngredients(@RequestParam("id") String recipeId, Model model) {
+        Long longRecipeId = Long.parseLong(recipeId);
+        CompleteRecipe recipe = recipeService.getCompleteRecipeById(longRecipeId);
         model.addAttribute("title", recipe.getRecipeName() + "Ingredients");
         model.addAttribute("recipe", recipe);
-        model.addAttribute("ingredients", ingredients);
-        //model.addAttribute("ingredientId", ingredientsId);
         return "viewIngredients";
+    }
+
+    @PostMapping(value = {"/addToShopList"})
+    private String addToShopList(@RequestParam("id") String chefIngredientAndRecipeIds) {
+        String[] values = chefIngredientAndRecipeIds.split(";");
+        Long chefId = Long.parseLong(values[0]);
+        Long ingredientId = Long.parseLong(values[1]);
+        int recipeId = Integer.parseInt(values[2]);
+        shopListService.saveOrUpdate(chefId, ingredientId);
+        return "redirect:viewIngredients?id=" + recipeId;
     }
 }

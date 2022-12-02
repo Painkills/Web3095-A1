@@ -11,6 +11,8 @@
 
 package com.a1.cookbook.service;
 
+import com.a1.cookbook.data.Ingredient;
+
 import java.util.List;
 
 public class CompleteRecipe {
@@ -18,7 +20,7 @@ public class CompleteRecipe {
     private Long recipeId;
     private String recipeName;
     private String recipeCategory;
-    private List<String> recipeIngredients;
+    private List<Ingredient> recipeIngredients;
     private String recipeInstructions;
     private Long creatorId;
     private String creatorName;
@@ -63,9 +65,9 @@ public class CompleteRecipe {
         this.recipeCategory = recipeCategory;
     }
 
-    public List<String> getRecipeIngredients() { return recipeIngredients; }
+    public List<Ingredient> getRecipeIngredients() { return recipeIngredients; }
 
-    public void setRecipeIngredients(List<String> recipeIngredients) {
+    public void setRecipeIngredients(List<Ingredient> recipeIngredients) {
         this.recipeIngredients = recipeIngredients;
     }
 
