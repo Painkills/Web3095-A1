@@ -19,16 +19,17 @@ import java.util.List;
 @RequestMapping("/fav")
 public class FavoriteController {
     public final FavService favService;
+    static Long theChefId = 0L;
 
     public FavoriteController(FavService favService) {
         this.favService = favService;
     }
 
     @GetMapping(value={"/", ""})
-    public String getFavorites(@RequestParam(value = "chef")int chef, Model model) {
-        Long chefId = (long) chef;
-        List<CompleteRecipe> recipes = this.favService.getFavoriteRecipesByChef(chefId);
-        model.addAttribute("chefId", chefId);
+    public String getFavorites(@RequestParam(value = "chef")Long chef, Model model) {
+        theChefId = chef;
+        List<CompleteRecipe> recipes = this.favService.getFavoriteRecipesByChef(theChefId);
+        model.addAttribute("ChefId", theChefId);
         model.addAttribute("req", "fav");
         model.addAttribute("title", "your Favorite Recipes!");
         model.addAttribute("recipes", recipes);

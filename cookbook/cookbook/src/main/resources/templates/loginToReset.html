@@ -9,9 +9,33 @@
       margin: auto;
       width: 40%;
     }
+     ul {
+       list-style-type: none;
+       margin: 0;
+       padding: 0;
+       overflow: hidden;
+       background-color: #dddddd;
+     }
+
+    li {
+      float: left;
+    }
+
+    li a {
+      display: block;
+      padding: 8px;
+    }
   </style>
 </head>
 <body>
+<ul>
+  <li><a href="welcome">Home</a></li>
+  <li><a th:href="'/plan?chef='+ ${ChefId}">Planner</a></li>
+  <li><a th:href="'/fav?chef='+${ChefId}">Favorites</a></li>
+  <li><a th:href="'/recipe?chef='+${ChefId}">Recipes</a></li>
+  <li><a th:href="'/recipe/create?chef='+${ChefId}">Create Recipe</a></li>
+  <li><a href="/resetPassword">Reset Password</a></li>
+</ul>
 <h1 class="text-center">Password Reset</h1>
 <div class="small-middle-container">
   <form method="post" class="row g-2">

@@ -8,6 +8,7 @@
 package com.a1.cookbook.web;
 
 import com.a1.cookbook.data.Recipe;
+import com.a1.cookbook.service.ChefService;
 import com.a1.cookbook.service.CompleteRecipe;
 import com.a1.cookbook.service.RecipeService;
 import org.springframework.stereotype.Controller;
@@ -21,17 +22,22 @@ import java.util.List;
 @RequestMapping("/recipe")
 public class RecipeController {
     public final RecipeService recipeService;
+    public final ChefService chefService;
+    static Long theChefID = 0L;
 
-    public RecipeController(RecipeService recipeService) {
+    public RecipeController(RecipeService recipeService, ChefService chefService) {
         this.recipeService = recipeService;
+        this.chefService = chefService;
     }
 
     @GetMapping(value = {"", "/"})
-    private String getAllRecipes(Model model) {
+    private String getAllRecipes(Model model, @RequestParam(value = "chef")Long chef) {
         List<CompleteRecipe> recipes = recipeService.getAllRecipes();
+        theChefID = chef;
         model.addAttribute("req", "recipe");
         model.addAttribute("title", "the Recipinomicon!");
         model.addAttribute("recipes", recipes);
+        model.addAttribute("ChefId", theChefID);
         return "recipeList";
     }
 
@@ -46,8 +52,11 @@ public class RecipeController {
 
 
     @GetMapping (value = {"/create"})
-    private String addRecipePage(Model model) {
+    private String addRecipePage(Model model, @RequestParam(value = "chef")Long chef) {
+        theChefID = chef;
         model.addAttribute("req", "create");
+        model.addAttribute("ChefId", theChefID);
+
         return "createRecipe";
     }
 

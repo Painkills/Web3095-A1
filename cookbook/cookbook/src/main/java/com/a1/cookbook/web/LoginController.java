@@ -21,6 +21,7 @@ import java.util.Objects;
 public class LoginController {
     public final ChefService chefService;
     static private String theChefEmail = "";
+    static private Long theChefId = 0L;
     public LoginController(ChefService chefService) {
         this.chefService = chefService;
     }
@@ -35,7 +36,8 @@ public class LoginController {
         }
     }
     @RequestMapping(value = "/resetPassword", method = RequestMethod.GET)
-    public String resetPasswordPage(){
+    public String resetPasswordPage(Model model){
+        model.addAttribute("ChefId", theChefId);
         return "loginToReset";
     }
     @RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
@@ -67,7 +69,6 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String welcomePage(Model model, @RequestParam String email, String password){
-        RedirectView redirectView = new RedirectView();
         if(!password.isEmpty() && !email.isEmpty()){
             boolean theChef = this.chefService.checkLogin(email, password);
             String chefName = "";
@@ -100,6 +101,7 @@ public class LoginController {
             Long chefId;
             chefName = chefService.returnName(theChefEmail);
             chefId = chefService.returnId(theChefEmail);
+            theChefId = chefId;
             model.addAttribute("theChef", chefName);
             model.addAttribute("ChefId", chefId);
             return "welcome";
