@@ -30,7 +30,7 @@ public class ProfileController {
         model.addAttribute("fName", chefName);
         model.addAttribute("lName", chefLastName);
         model.addAttribute("pass", chefLastName);
-        model.addAttribute("ChefId", theChefID);
+        model.addAttribute("chefId", theChefID);
         return "/profile";
     }
     @RequestMapping(value = "/profile/edit", method= RequestMethod.GET)
@@ -38,7 +38,7 @@ public class ProfileController {
         model.addAttribute("email", chefEmail);
         model.addAttribute("fName", chefName);
         model.addAttribute("lName", chefLastName);
-        model.addAttribute("ChefId", theChefID);
+        model.addAttribute("chefId", theChefID);
         return "/editProfile";
     }
     @RequestMapping(value = "/profile/edit", method= RequestMethod.POST)

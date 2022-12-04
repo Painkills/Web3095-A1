@@ -37,9 +37,10 @@ public class PlannedMealController {
         theChefId = chefId;
         date = (dateString == null)? LocalDate.now() : LocalDate.parse(dateString);
         Map<LocalDate, List<PlannedMeal>> mealPlans = this.mealService.getPlannedMealsByIdAndDate(chefId, date);
+        model.addAttribute("chefId", chefId);
         model.addAttribute("req", "plan");
         model.addAttribute("mealPlans", mealPlans);
-        model.addAttribute("ChefId", theChefId);
+        model.addAttribute("chefId", theChefId);
         return "mealPlanner";
     }
 
